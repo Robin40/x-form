@@ -11,6 +11,10 @@ import {
     $Time,
     $Radio,
     CustomField,
+    Field,
+    Invalid,
+    Result,
+    Valid,
     optional,
     useForm,
     $TextArea,
@@ -35,11 +39,26 @@ const $Gender = CustomField.extends($Radio).with({
 });
 
 function App() {
+    const $RepeatPassword = CustomField.extends($Password).with({
+        label: 'Repeat password',
+
+        validate(this: Field<string, string>, value: string): Result<string> {
+            const { pass } = this.form.fields;
+
+            if (!pass.is(value)) {
+                return Invalid('Passwords do not match');
+            }
+
+            return Valid(value);
+        },
+    });
+
     const form = useForm(
         $Form({
             fields: {
                 user: $Text('Username'),
                 pass: $Password(),
+                repeatPass: $RepeatPassword(),
                 age: optional($Number('Age')),
                 dob: $Date('Date of birth'),
                 tob: $Time('Time of birth'),

@@ -200,7 +200,14 @@ export class Field<S, T> implements IField<S, T> {
 
     readonly textAreaProps = this.inputProps as any;
 
-    readonly result = this.computeResult();
+    private _result?: Result<T>;
+
+    get result(): Result<T> {
+        if (this._result == null) {
+            this._result = this.computeResult();
+        }
+        return this._result;
+    }
 
     private computeResult(): Result<T> {
         const {
@@ -219,7 +226,9 @@ export class Field<S, T> implements IField<S, T> {
         return parse(input_).chain(validate);
     }
 
-    readonly isValid = this.result instanceof Valid;
+    get isValid(): boolean {
+        return this.is(Valid);
+    }
 
     /** Checks whether this field is a valid field with the given value,
      * using `Immutable.is` for the equality check.

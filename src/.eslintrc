@@ -1,5 +1,14 @@
 {
   "env": {
     "jest": true
+  },
+  "rules": {
+    "no-useless-constructor": "off",
+    "no-unused-expressions": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-this-alias": "off",
+    "@typescript-eslint/no-explicit-any": "off"
+//    "@typescript-eslint/no-use-before-define": ["error"]
   }
 }

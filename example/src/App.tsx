@@ -24,6 +24,7 @@ import {
 import '@tdc-cl/x-form/dist/index.css';
 import { LocalTime } from 'js-joda';
 import { Decimal } from 'decimal.js';
+import { $Rut } from './$Rut';
 
 const $Gender = CustomField.extends($Radio).with({
     label: 'Gender',
@@ -62,6 +63,7 @@ function App() {
                 tob: $Time('Time of birth'),
                 gender: $Gender().editable(),
                 bio: optional($TextArea('Bio')),
+                rut: optional($Rut()),
                 income: $Decimal('Income').with({
                     inputProps: { min: 2, max: 4 },
                 }),

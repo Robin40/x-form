@@ -4,12 +4,12 @@
 
 [![NPM](https://img.shields.io/npm/v/@tdc-cl/x-form.svg)](https://www.npmjs.com/package/@tdc-cl/x-form) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+Created at [The Dog Company](https://thedogcompany.cl/)
+
 ## Install (yarn)
 - Install the peer dependencies
 ```bash
-yarn add immutable
-yarn add js-joda
-yarn add decimal.js
+yarn add immutable js-joda decimal.js
 ```
 
 - Then install x-form
@@ -20,9 +20,7 @@ yarn add @tdc-cl/x-form
 ## Install (npm)
 - Install the peer dependencies
 ```bash
-npm install --save immutable
-npm install --save js-joda
-npm install --save decimal.js
+npm install --save immutable js-joda decimal.js
 ```
 
 - Then install x-form
@@ -33,7 +31,7 @@ npm install --save @tdc-cl/x-form
 ## Basic usage
 Let's create a login form
 ```typescript jsx
-import { useForm, $Form, $Text, $Checkbox, $Button } from '@tdc-cl/x-form';
+import { useForm, $Form, $Text, $Password, $Checkbox, $Button } from '@tdc-cl/x-form';
 
 function MyLoginFormComponent() {
     const form = useForm($Form({

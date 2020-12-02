@@ -1,27 +1,25 @@
 import React from 'react';
 
 import {
+    $Button,
     $Checkbox,
     $Checklist,
     $Date,
+    $Decimal,
     $Form,
     $Number,
     $Password,
-    $Text,
-    $Time,
     $Radio,
-    CustomField,
-    Field,
-    Invalid,
-    Result,
-    Valid,
-    optional,
-    useForm,
+    $Text,
     $TextArea,
-    $Decimal,
-    $Button,
-    XFormContext,
+    $Time,
+    CustomField,
+    Invalid,
+    optional,
     spanish,
+    useForm,
+    Valid,
+    XFormContext,
 } from '@tdc-cl/x-form';
 import '@tdc-cl/x-form/dist/index.css';
 import { LocalTime } from 'js-joda';
@@ -42,8 +40,8 @@ function App() {
     const $RepeatPassword = CustomField.extends($Password).with({
         label: 'Repeat password',
 
-        validate(this: Field<string, string>, value: string): Result<string> {
-            const { pass } = this.form.fields;
+        validate(value) {
+            const { pass } = form.fields;
 
             if (!pass.is(value)) {
                 return Invalid('Passwords do not match');

@@ -36,7 +36,7 @@ interface IField<S, T> {
     /** @internal */
     [setForm](form: Form): void;
 
-    /** True if the field is optional, i.e was wrapped in an `$Optional`.
+    /** True if the field is optional, i.e was wrapped in an `optional`.
      * By default all built-in fields are required. */
     readonly isOptional: boolean;
 

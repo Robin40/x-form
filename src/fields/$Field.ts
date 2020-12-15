@@ -1,10 +1,10 @@
 import _ from 'lodash';
-import { ReactElement, useContext, useRef } from 'react';
+import { ReactElement, useContext, useMemo, useRef } from 'react';
 import { InputProps } from '../utils/htmlProps';
 import { Field } from './Field';
 import { useInputState } from '../utils/useInputState';
 import { Result } from '../Result';
-import { Theme } from './Theme';
+import { defaultTheme, Theme } from './Theme';
 import { EnumOption } from './EnumOption';
 import { XFormContext } from '../XFormContext';
 
@@ -12,6 +12,7 @@ export interface FieldConfig<S, T> {
     readonly label?: string | ReactElement;
     readonly inputProps?: InputProps;
     readonly options?: Options;
+
     optionInputProps?(option: EnumOption): InputProps;
 
     preprocess?(input: S): S;
@@ -105,6 +106,19 @@ export function useField<S, T>(field: $Field<S, T>, name: string): Field<S, T> {
     const inputRef = useRef(null);
     const textAreaRef = useRef(null);
 
+    /* Memoize any inline components defined by the user to avoid bugs where the
+     * input loses focus due to React rendering a different component each time. */
+    const theme = useMemo(
+        () =>
+            _.merge(
+                {},
+                defaultTheme,
+                field.defaults.render,
+                field.config.render
+            ),
+        []
+    );
+
     return new Field(
         locale,
         field.defaults,
@@ -113,6 +127,7 @@ export function useField<S, T>(field: $Field<S, T>, name: string): Field<S, T> {
         input,
         containerRef,
         inputRef,
-        textAreaRef
+        textAreaRef,
+        theme
     );
 }

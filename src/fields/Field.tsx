@@ -6,7 +6,7 @@ import { InputState } from '../utils/useInputState';
 import { Invalid, Predicate, Result, ResultType, Valid } from '../Result';
 import Immutable from 'immutable';
 import deepExtend from 'deep-extend';
-import { defaultTheme, Theme } from './Theme';
+import { Theme } from './Theme';
 import { EnumOption, Option, OptionWithProps } from './EnumOption';
 import {
     isReactElement,
@@ -30,6 +30,7 @@ interface IField<S, T> {
     readonly containerRef: RefObject<HTMLDivElement>;
     readonly inputRef: RefObject<HTMLInputElement>;
     readonly textAreaRef: RefObject<HTMLTextAreaElement>;
+    readonly theme: Theme;
 
     readonly form: Form;
 
@@ -40,8 +41,6 @@ interface IField<S, T> {
      * By default all built-in fields are required. */
     readonly isOptional: boolean;
 
-    readonly theme: Theme;
-
     readonly result: Result<T>;
 
     /** True if the field can be submitted with the current input, i.e. the user
@@ -50,7 +49,9 @@ interface IField<S, T> {
     readonly isValid: boolean;
 
     is(value: T): boolean;
+
     is(predicate: Predicate<T>): boolean;
+
     is(type: ResultType): boolean;
 
     readonly label?: string | ReactElement;
@@ -86,7 +87,8 @@ export class Field<S, T> implements IField<S, T> {
         readonly input: InputState<S>,
         readonly containerRef: RefObject<HTMLDivElement>,
         readonly inputRef: RefObject<HTMLInputElement>,
-        readonly textAreaRef: RefObject<HTMLTextAreaElement>
+        readonly textAreaRef: RefObject<HTMLTextAreaElement>,
+        readonly theme: Theme
     ) {}
 
     private _form: Form | undefined;
@@ -124,7 +126,6 @@ export class Field<S, T> implements IField<S, T> {
         preprocess: this.defaultPreprocess,
         isBlank: this.defaultIsBlank,
         blankResult: this.defaultBlankResult,
-        render: defaultTheme,
     };
 
     private readonly methods = _.merge(
@@ -140,7 +141,6 @@ export class Field<S, T> implements IField<S, T> {
     readonly blankResult = this.methods.blankResult;
     readonly parse = this.methods.parse.bind(this);
     readonly validate = this.methods.validate.bind(this);
-    readonly theme = this.methods.render;
 
     readonly isOptional = this.blankResult instanceof Valid;
 

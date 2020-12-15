@@ -55,7 +55,18 @@ function App() {
     const form = useForm(
         $Form({
             fields: {
-                user: $Text('Username'),
+                user: $Text('Username').with({
+                    render: {
+                        Input({ field }) {
+                            return (
+                                <input
+                                    {...field.inputProps}
+                                    ref={field.inputRef}
+                                />
+                            );
+                        },
+                    },
+                }),
                 pass: $Password(),
                 repeatPass: $RepeatPassword(),
                 age: optional($Number('Age')),

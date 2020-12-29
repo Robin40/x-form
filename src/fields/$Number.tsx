@@ -27,6 +27,7 @@ export const $Number = CustomField<string, number>({
             allowedDecimals,
             min,
             max,
+            Boolean(this.nonZero),
             this.locale
         ).map((decimal) => decimal.toNumber());
     },

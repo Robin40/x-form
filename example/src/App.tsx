@@ -69,7 +69,9 @@ function App() {
                 }),
                 pass: $Password(),
                 repeatPass: $RepeatPassword(),
-                age: optional($Number('Age')),
+                age: optional($Number('Age')).with({
+                    nonZero: true,
+                }),
                 dob: $Date('Date of birth'),
                 tob: $Time('Time of birth'),
                 gender: $Gender().editable(),

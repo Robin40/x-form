@@ -21,7 +21,14 @@ export const $Decimal = CustomField<string, Decimal>({
         const min = new Decimal(this.inputProps.min ?? 0);
         const max = new Decimal(this.inputProps.max ?? Infinity);
 
-        return parseDecimal(input, allowedDecimals, min, max, this.locale);
+        return parseDecimal(
+            input,
+            allowedDecimals,
+            min,
+            max,
+            Boolean(this.nonZero),
+            this.locale
+        );
     },
 
     validate: Valid,
@@ -59,6 +66,7 @@ export function parseDecimal(
     allowedDecimals: number,
     min: Decimal,
     max: Decimal,
+    nonZero: boolean,
     locale: XFormLocale
 ): Result<Decimal> {
     /* Is this even a number to start with?
@@ -105,6 +113,10 @@ export function parseDecimal(
 
     if (value.greaterThan(max)) {
         return Invalid(locale.tooBig(max));
+    }
+
+    if (nonZero && value.isZero()) {
+        return Invalid(locale.cantBeZero);
     }
 
     return Valid(value);

@@ -13,6 +13,10 @@ export interface FieldConfig<S, T> {
     readonly inputProps?: InputProps;
     readonly options?: Options;
 
+    /** For numeric fields, `true` means zero
+     * is not a valid value for this field. */
+    readonly nonZero?: boolean;
+
     optionInputProps?(option: EnumOption): InputProps;
 
     preprocess?(input: S): S;

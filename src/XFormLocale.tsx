@@ -10,6 +10,7 @@ export interface XFormLocale {
     negative: string;
     tooSmall(min: Decimal): string;
     tooBig(max: Decimal): string;
+    cantBeZero: string;
     invalidDate: string;
     invalidTime: string;
 }
@@ -25,6 +26,7 @@ export const english: XFormLocale = {
     negative: "Can't be a negative number",
     tooSmall: (min) => `Must be at least ${min}`,
     tooBig: (max) => `Must be at most ${max}`,
+    cantBeZero: "Can't be zero",
     invalidDate: 'Invalid date',
     invalidTime: 'Invalid time',
 };
@@ -40,6 +42,7 @@ export const spanish: XFormLocale = {
     negative: 'No puede ser negativo',
     tooSmall: (min) => `Debe ser al menos ${min}`,
     tooBig: (max) => `Debe ser al menos ${max}`,
+    cantBeZero: 'No puede ser 0',
     invalidDate: 'Fecha inválida',
     invalidTime: 'Hora inválida',
 };

@@ -4,6 +4,8 @@ import { Valid } from '../Result';
 import { Field } from './Field';
 
 export const $Text = CustomField<string, string>({
+    category: 'textual',
+
     preprocess(this: Field<string, string>, input: string): string {
         // Don't remove whitespace from passwords
         const type =

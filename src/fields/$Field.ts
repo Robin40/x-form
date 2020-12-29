@@ -56,8 +56,12 @@ interface I$Field<S, T> {
     readOnlyIf(condition: boolean): $Field<S, T>;
 }
 
+export type FieldCategory = 'textual' | 'numeric' | 'enum' | 'binary';
+
 export interface FieldDefaults<S, T> extends FieldConfig<S, T> {
-    readonly blankInput: S;
+    category?: FieldCategory;
+
+    blankInput: S;
 
     isBlank?(input: S): boolean;
 

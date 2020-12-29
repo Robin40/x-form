@@ -6,6 +6,7 @@ import { Field } from './Field';
 import _ from 'lodash';
 
 export const $Select = CustomField<string, Option>({
+    category: 'enum',
     blankInput: '',
 
     parse(this: Field<string, Option>, input: string): Result<Option> {

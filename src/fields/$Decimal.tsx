@@ -8,6 +8,7 @@ import _ from 'lodash';
 import { XFormLocale } from '../XFormLocale';
 
 export const $Decimal = CustomField<string, Decimal>({
+    category: 'numeric',
     preprocess: removeExcessWhitespace,
     blankInput: '',
 

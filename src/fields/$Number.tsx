@@ -7,6 +7,7 @@ import { Decimal } from 'decimal.js';
 import _ from 'lodash';
 
 export const $Number = CustomField<string, number>({
+    category: 'numeric',
     preprocess: removeExcessWhitespace,
     blankInput: '',
 

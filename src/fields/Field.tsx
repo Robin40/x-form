@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ChangeEvent, FocusEvent, ReactElement, RefObject } from 'react';
-import { FieldConfig, FieldDefaults, Options } from './$Field';
+import { FieldCategory, FieldConfig, FieldDefaults, Options } from './$Field';
 import { InputProps, LabelProps, TextAreaProps } from '../utils/htmlProps';
 import { InputState } from '../utils/useInputState';
 import { Invalid, Predicate, Result, ResultType, Valid } from '../Result';
@@ -36,6 +36,8 @@ interface IField<S, T> {
 
     /** @internal */
     [setForm](form: Form): void;
+
+    readonly category?: FieldCategory;
 
     /** True if the field is optional, i.e was wrapped in an `optional`.
      * By default all built-in fields are required. */
@@ -141,6 +143,7 @@ export class Field<S, T> implements IField<S, T> {
     readonly blankResult = this.methods.blankResult;
     readonly parse = this.methods.parse.bind(this);
     readonly validate = this.methods.validate.bind(this);
+    readonly category = this.methods.category;
 
     readonly isOptional = this.blankResult instanceof Valid;
 

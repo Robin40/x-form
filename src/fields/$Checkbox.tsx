@@ -4,6 +4,7 @@ import React from 'react';
 import _ from 'lodash';
 
 export const $Checkbox = CustomField<boolean, boolean>({
+    category: 'binary',
     blankInput: false,
     isBlank: () => false,
 

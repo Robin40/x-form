@@ -5,6 +5,7 @@ import { Option } from './EnumOption';
 import { $Select, acceptOption } from './$Select';
 
 export const $Radio = CustomField<string, Option>({
+    category: 'enum',
     blankInput: '',
     parse: $Select.defaults.parse,
     validate: Valid,

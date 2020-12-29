@@ -10,6 +10,7 @@ type S = Set<string>;
 type T = Set<string>;
 
 export const $Checklist = CustomField<S, T>({
+    category: 'enum',
     blankInput: Set(),
     parse: Valid,
     validate: Valid,

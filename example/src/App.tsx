@@ -65,6 +65,9 @@ function App() {
                                 />
                             );
                         },
+                        Error({ children }) {
+                            return <pre>{children}</pre>;
+                        },
                     },
                 }),
                 pass: $Password(),

@@ -9,6 +9,7 @@ export interface Theme {
     readonly Optional: ThemeComponent;
     readonly Input: ThemeComponent;
     readonly Message: ThemeComponent;
+    readonly Error: ThemeComponentWithChildren;
 }
 
 type ThemeComponent = <S, T>(props: ThemeProps<S, T>) => ReactElement | null;
@@ -70,19 +71,24 @@ export const defaultTheme: Theme = {
     },
 
     Message({ field }) {
-        const { result, input, form } = field;
+        const { result, input, form, theme } = field;
+        const { Error } = theme;
 
         if (
             result instanceof Invalid &&
             (input.hasBeenBlurred || form.hasBeenSubmitted)
         ) {
-            return (
-                <small style={{ color: '#b60000', fontWeight: 600 }}>
-                    {result.message}
-                </small>
-            );
+            return <Error field={field}>{result.message}</Error>;
         }
 
         return null;
+    },
+
+    Error({ children }) {
+        return (
+            <small style={{ color: '#b60000', fontWeight: 600 }}>
+                {children}
+            </small>
+        );
     },
 };

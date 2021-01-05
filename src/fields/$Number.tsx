@@ -16,7 +16,8 @@ export const $Number = CustomField<string, number>({
 
         /* By default don't allow negative numbers as
          * probably you don't want those in your forms */
-        const min = new Decimal(this.inputProps.min ?? 0);
+        const defaultMin = this.allowNegative ? -Infinity : 0;
+        const min = new Decimal(this.inputProps.min ?? defaultMin);
         const max = new Decimal(this.inputProps.max ?? Infinity);
 
         /* Why write a parser again for the native numbers when
@@ -27,7 +28,8 @@ export const $Number = CustomField<string, number>({
             allowedDecimals,
             min,
             max,
-            Boolean(this.nonZero),
+            this.nonZero,
+            this.allowNegative,
             this.locale
         ).map((decimal) => decimal.toNumber());
     },

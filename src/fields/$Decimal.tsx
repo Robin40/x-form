@@ -18,7 +18,8 @@ export const $Decimal = CustomField<string, Decimal>({
 
         /* By default don't allow negative numbers as
          * probably you don't want those in your forms */
-        const min = new Decimal(this.inputProps.min ?? 0);
+        const defaultMin = this.allowNegative ? -Infinity : 0;
+        const min = new Decimal(this.inputProps.min ?? defaultMin);
         const max = new Decimal(this.inputProps.max ?? Infinity);
 
         return parseDecimal(
@@ -26,7 +27,8 @@ export const $Decimal = CustomField<string, Decimal>({
             allowedDecimals,
             min,
             max,
-            Boolean(this.nonZero),
+            this.nonZero,
+            this.allowNegative,
             this.locale
         );
     },
@@ -40,7 +42,6 @@ export const $Decimal = CustomField<string, Decimal>({
     },
 
     inputProps: {
-        min: 0,
         style: { display: 'block' },
     },
 });
@@ -67,6 +68,7 @@ export function parseDecimal(
     min: Decimal,
     max: Decimal,
     nonZero: boolean,
+    allowNegative: boolean,
     locale: XFormLocale
 ): Result<Decimal> {
     /* Is this even a number to start with?
@@ -106,7 +108,7 @@ export function parseDecimal(
     }
 
     if (value.lessThan(min)) {
-        return value.isNegative()
+        return value.isNegative() && !allowNegative
             ? Invalid(locale.negative)
             : Invalid(locale.tooSmall(min));
     }

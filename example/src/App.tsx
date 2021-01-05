@@ -71,6 +71,7 @@ function App() {
                 repeatPass: $RepeatPassword(),
                 age: optional($Number('Age')).with({
                     nonZero: true,
+                    // allowNegative: true,
                 }),
                 dob: $Date('Date of birth'),
                 tob: $Time('Time of birth'),

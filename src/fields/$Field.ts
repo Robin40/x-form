@@ -17,6 +17,10 @@ export interface FieldConfig<S, T> {
      * is not a valid value for this field. */
     readonly nonZero?: boolean;
 
+    /** For numeric fields, `true` if negative numbers are valid
+     * for this field. By default negative numbers are not valid. */
+    readonly allowNegative?: boolean;
+
     optionInputProps?(option: EnumOption): InputProps;
 
     preprocess?(input: S): S;

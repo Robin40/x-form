@@ -38,7 +38,8 @@ interface IField<S, T> {
     [setForm](form: Form): void;
 
     readonly category?: FieldCategory;
-    readonly nonZero?: boolean;
+    readonly nonZero: boolean;
+    readonly allowNegative: boolean;
 
     /** True if the field is optional, i.e was wrapped in an `optional`.
      * By default all built-in fields are required. */
@@ -145,7 +146,8 @@ export class Field<S, T> implements IField<S, T> {
     readonly parse = this.methods.parse.bind(this);
     readonly validate = this.methods.validate.bind(this);
     readonly category = this.methods.category;
-    readonly nonZero = this.methods.nonZero;
+    readonly nonZero = this.methods.nonZero ?? false;
+    readonly allowNegative = this.methods.allowNegative ?? false;
 
     readonly isOptional = this.blankResult instanceof Valid;
 

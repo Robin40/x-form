@@ -1,8 +1,8 @@
-import { $Field } from './$Field';
+import { FieldSpec } from './FieldSpec';
 import { Valid } from '../Result';
 
-export function optional<S, T>(field: $Field<S, T>): $Field<S, T | null> {
-    return new $Field<S, T | null>(field.config, {
+export function optional<S, T>(field: FieldSpec<S, T>): FieldSpec<S, T | null> {
+    return new FieldSpec<S, T | null>(field.config, {
         ...field.defaults,
 
         blankResult: Valid<T | null>(null),

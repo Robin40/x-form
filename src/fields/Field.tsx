@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { ChangeEvent, FocusEvent, ReactElement, RefObject } from 'react';
-import { FieldCategory, FieldConfig, FieldDefaults, Options } from './$Field';
+import {
+    FieldCategory,
+    FieldConfig,
+    FieldDefaults,
+    Options,
+} from './FieldSpec';
 import { InputProps, LabelProps, TextAreaProps } from '../utils/htmlProps';
 import { InputState } from '../utils/useInputState';
 import { Invalid, Predicate, Result, ResultType, Valid } from '../Result';

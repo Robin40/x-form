@@ -34,34 +34,34 @@ export type FieldOption = EnumOption | string;
 export type Options = FieldOption[] | AsyncOptions;
 export type AsyncOptions = () => Promise<FieldOption[]>;
 
-interface I$Field<S, T> {
+interface IFieldSpec<S, T> {
     readonly config: FieldConfig<S, T>;
     readonly defaults: FieldDefaults<S, T>;
 
-    with(config: FieldConfig<S, T>): $Field<S, T>;
+    with(config: FieldConfig<S, T>): FieldSpec<S, T>;
 
     /** Makes this field read-only.
      *
      * This is preferred to setting `readOnly` on `inputProps` as this method
      * sets additional props that you will probably want as well (e.g. `disabled`).
      *
-     * @see I$Field.readOnlyIf */
-    readOnly(): $Field<S, T>;
+     * @see IFieldSpec.readOnlyIf */
+    readOnly(): FieldSpec<S, T>;
 
     /** Make this field editable (i.e. not read-only).
      *
      * Fields are editable by default, but this method may be
      * used to undo a `.readOnly()` or `.readOnlyIf()` modifier.
      *
-     * @see I$Field.readOnly */
-    editable(): $Field<S, T>;
+     * @see IFieldSpec.readOnly */
+    editable(): FieldSpec<S, T>;
 
     /** Makes this field read-only if the `condition` is true.
      * If the `condition` is false, the field
      * becomes editable if it was read-only.
      *
-     * @see I$Field.readOnly */
-    readOnlyIf(condition: boolean): $Field<S, T>;
+     * @see IFieldSpec.readOnly */
+    readOnlyIf(condition: boolean): FieldSpec<S, T>;
 }
 
 export type FieldCategory = 'textual' | 'numeric' | 'enum' | 'binary';
@@ -80,25 +80,25 @@ export interface FieldDefaults<S, T> extends FieldConfig<S, T> {
     acceptExternal?(data: unknown): S | undefined;
 }
 
-export class $Field<S, T> implements I$Field<S, T> {
+export class FieldSpec<S, T> implements IFieldSpec<S, T> {
     constructor(
         readonly config: FieldConfig<S, T>,
         readonly defaults: FieldDefaults<S, T>
     ) {}
 
-    with(config: FieldConfig<S, T>): $Field<S, T> {
-        return new $Field(_.merge({}, this.config, config), this.defaults);
+    with(config: FieldConfig<S, T>): FieldSpec<S, T> {
+        return new FieldSpec(_.merge({}, this.config, config), this.defaults);
     }
 
-    readOnly(): $Field<S, T> {
+    readOnly(): FieldSpec<S, T> {
         return this.readOnlyIf(true);
     }
 
-    editable(): $Field<S, T> {
+    editable(): FieldSpec<S, T> {
         return this.readOnlyIf(false);
     }
 
-    readOnlyIf(condition: boolean): $Field<S, T> {
+    readOnlyIf(condition: boolean): FieldSpec<S, T> {
         return this.with({
             inputProps: {
                 readOnly: condition,
@@ -110,7 +110,10 @@ export class $Field<S, T> implements I$Field<S, T> {
     }
 }
 
-export function useField<S, T>(field: $Field<S, T>, name: string): Field<S, T> {
+export function useField<S, T>(
+    field: FieldSpec<S, T>,
+    name: string
+): Field<S, T> {
     const { locale } = useContext(XFormContext);
     const optionsMethod = field.config.options ?? field.defaults.options ?? [];
     const input = useInputState(field.defaults.blankInput, optionsMethod);

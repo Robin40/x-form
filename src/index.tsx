@@ -3,7 +3,7 @@ import { $Checkbox, acceptBoolean } from './fields/$Checkbox';
 import { $Checklist } from './fields/$Checklist';
 import { $Date } from './fields/$Date';
 import { $Decimal } from './fields/$Decimal';
-import { $Field, FieldConfig, FieldDefaults } from './fields/$Field';
+import { FieldSpec, FieldConfig, FieldDefaults } from './fields/FieldSpec';
 import { $Number } from './fields/$Number';
 import { $Password } from './fields/$Password';
 import { $Radio } from './fields/$Radio';
@@ -38,7 +38,6 @@ export {
     $Checklist,
     $Date,
     $Decimal,
-    $Field,
     $Form,
     $Number,
     $Password,
@@ -57,6 +56,8 @@ export {
     useForm,
     CustomField,
     Field,
+    FieldSpec,
+    FieldSpec as $Field,
     Invalid,
     Option,
     OptionWithProps,

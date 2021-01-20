@@ -1,4 +1,4 @@
-import { $Field, useField } from './fields/$Field';
+import { FieldSpec, useField } from './fields/FieldSpec';
 import _ from 'lodash';
 import { $Submitter, useSubmitter } from './submit/$Submitter';
 import { Form } from './Form';
@@ -12,10 +12,10 @@ export interface FormConfig {
 }
 
 export type FieldTransform = <S, T>(
-    field: $Field<S, T>,
+    field: FieldSpec<S, T>,
     name: string,
     fields: $FormFields
-) => $Field<S, T>;
+) => FieldSpec<S, T>;
 
 /** @see $Form */
 class _$Form {
@@ -53,7 +53,7 @@ export function $Form(config: FormConfig): $Form {
 $Form.prototype = _$Form.prototype;
 
 type $FormFields = {
-    [p: string]: $Field<any, any>;
+    [p: string]: FieldSpec<any, any>;
 };
 
 export function useForm(form: $Form): Form {

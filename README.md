@@ -31,12 +31,12 @@ npm install --save @tdc-cl/x-form
 ## Basic usage
 Let's create a login form
 ```typescript jsx
-import { useForm, $Form, $Text, $Password, $Checkbox, $Button } from '@tdc-cl/x-form';
+import { useForm, $Form, text, $Password, $Checkbox, $Button } from '@tdc-cl/x-form';
 
 function MyLoginFormComponent() {
     const form = useForm($Form({
         fields: {
-            user: $Text('Username'),
+            user: text('Username'),
             pass: $Password(),
             remember: $Checkbox('Remember me'),
         },

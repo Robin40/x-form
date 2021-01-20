@@ -1,8 +1,8 @@
 import { CustomField } from './CustomField';
 import React from 'react';
-import { $Text } from './$Text';
+import { text } from './text';
 
-export const $TextArea = CustomField.extends($Text).with({
+export const $TextArea = CustomField.extends(text).with({
     preprocess: undefined,
 
     render: {

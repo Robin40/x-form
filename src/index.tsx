@@ -8,7 +8,7 @@ import { $Number } from './fields/$Number';
 import { $Password } from './fields/$Password';
 import { $Radio } from './fields/$Radio';
 import { $Select } from './fields/$Select';
-import { $Text } from './fields/$Text';
+import { text } from './fields/text';
 import { $TextArea } from './fields/$TextArea';
 import { $Time } from './fields/$Time';
 import { CustomField } from './fields/CustomField';
@@ -33,6 +33,8 @@ import { XFormContext } from './XFormContext';
 import { english, spanish } from './XFormLocale';
 
 export {
+    text,
+    text as $Text,
     $Button,
     $Checkbox,
     $Checklist,
@@ -44,7 +46,6 @@ export {
     $Radio,
     $Select,
     $Submitter,
-    $Text,
     $TextArea,
     $Time,
     acceptBoolean,

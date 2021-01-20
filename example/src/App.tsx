@@ -10,7 +10,7 @@ import {
     $Number,
     $Password,
     $Radio,
-    $Text,
+    text,
     $TextArea,
     $Time,
     CustomField,
@@ -55,7 +55,7 @@ function App() {
     const form = useForm(
         $Form({
             fields: {
-                user: $Text('Username').with({
+                user: text('Username').with({
                     render: {
                         Input({ field }) {
                             return (

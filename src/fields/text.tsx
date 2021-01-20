@@ -3,7 +3,7 @@ import { removeExcessWhitespace } from '../utils/utils';
 import { Valid } from '../Result';
 import { Field } from './Field';
 
-export const $Text = CustomField<string, string>({
+export const text = CustomField<string, string>({
     category: 'textual',
 
     preprocess(this: Field<string, string>, input: string): string {

@@ -34,7 +34,7 @@
     "decimal.js": "^10.2.1",
     "immutable": "^4.0.0-rc.12",
     "js-joda": "^1.11.0",
-    "react": "^16.0.0"
+    "react": ">=16"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",

@@ -4,7 +4,7 @@ import { Invalid, Result, Valid } from '../Result';
 import _ from 'lodash';
 import { Field } from './Field';
 
-export const $Date = CustomField<string, LocalDate>({
+export const date = CustomField<string, LocalDate>({
     blankInput: '',
 
     parse(this: Field<string, LocalDate>, input: string): Result<LocalDate> {

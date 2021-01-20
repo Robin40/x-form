@@ -7,7 +7,7 @@ import { removeExcessWhitespace } from '../utils/utils';
 import _ from 'lodash';
 import { XFormLocale } from '../XFormLocale';
 
-export const $Decimal = CustomField<string, Decimal>({
+export const decimal = CustomField<string, Decimal>({
     category: 'numeric',
     preprocess: removeExcessWhitespace,
     blankInput: '',

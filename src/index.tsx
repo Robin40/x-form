@@ -1,16 +1,16 @@
 import { $Form, FormConfig, useForm } from './$Form';
-import { $Checkbox, acceptBoolean } from './fields/$Checkbox';
-import { $Checklist } from './fields/$Checklist';
-import { $Date } from './fields/$Date';
-import { $Decimal } from './fields/$Decimal';
+import { checkbox, acceptBoolean } from './fields/checkbox';
+import { checklist } from './fields/checklist';
+import { date } from './fields/date';
+import { decimal } from './fields/decimal';
 import { FieldSpec, FieldConfig, FieldDefaults } from './fields/FieldSpec';
-import { $Number } from './fields/$Number';
-import { $Password } from './fields/$Password';
-import { $Radio } from './fields/$Radio';
-import { $Select } from './fields/$Select';
+import { number } from './fields/number';
+import { password } from './fields/password';
+import { radio } from './fields/radio';
+import { select } from './fields/select';
 import { text } from './fields/text';
-import { $TextArea } from './fields/$TextArea';
-import { $Time } from './fields/$Time';
+import { textarea } from './fields/textarea';
+import { time } from './fields/time';
 import { CustomField } from './fields/CustomField';
 import { EnumOption, Option, OptionWithProps } from './fields/EnumOption';
 import { Field, scrollToField } from './fields/Field';
@@ -33,21 +33,31 @@ import { XFormContext } from './XFormContext';
 import { english, spanish } from './XFormLocale';
 
 export {
+    checkbox,
+    checklist,
+    date,
+    decimal,
+    number,
+    password,
+    radio,
+    select,
     text,
+    textarea,
+    time,
+    checkbox as $Checkbox,
+    checklist as $Checklist,
+    date as $Date,
+    decimal as $Decimal,
+    number as $Number,
+    password as $Password,
+    radio as $Radio,
+    select as $Select,
     text as $Text,
+    textarea as $TextArea,
+    time as $Time,
     $Button,
-    $Checkbox,
-    $Checklist,
-    $Date,
-    $Decimal,
     $Form,
-    $Number,
-    $Password,
-    $Radio,
-    $Select,
     $Submitter,
-    $TextArea,
-    $Time,
     acceptBoolean,
     english,
     optional,

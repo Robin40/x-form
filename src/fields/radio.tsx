@@ -2,12 +2,12 @@ import React from 'react';
 import { CustomField } from './CustomField';
 import { Valid } from '../Result';
 import { Option } from './EnumOption';
-import { $Select, acceptOption } from './$Select';
+import { select, acceptOption } from './select';
 
-export const $Radio = CustomField<string, Option>({
+export const radio = CustomField<string, Option>({
     category: 'enum',
     blankInput: '',
-    parse: $Select.defaults.parse,
+    parse: select.defaults.parse,
     validate: Valid,
     acceptExternal: acceptOption,
 

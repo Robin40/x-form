@@ -2,7 +2,7 @@ import { CustomField } from './CustomField';
 import React from 'react';
 import { text } from './text';
 
-export const $TextArea = CustomField.extends(text).with({
+export const textarea = CustomField.extends(text).with({
     preprocess: undefined,
 
     render: {

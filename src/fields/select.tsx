@@ -5,7 +5,7 @@ import { Result, Valid } from '../Result';
 import { Field } from './Field';
 import _ from 'lodash';
 
-export const $Select = CustomField<string, Option>({
+export const select = CustomField<string, Option>({
     category: 'enum',
     blankInput: '',
 

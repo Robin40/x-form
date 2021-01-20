@@ -2,11 +2,11 @@ import { CustomField } from './CustomField';
 import { removeExcessWhitespace } from '../utils/utils';
 import { Result, Valid } from '../Result';
 import { Field } from './Field';
-import { $Decimal, inferAllowedDecimalsFrom, parseDecimal } from './$Decimal';
+import { decimal, inferAllowedDecimalsFrom, parseDecimal } from './decimal';
 import { Decimal } from 'decimal.js';
 import _ from 'lodash';
 
-export const $Number = CustomField<string, number>({
+export const number = CustomField<string, number>({
     category: 'numeric',
     preprocess: removeExcessWhitespace,
     blankInput: '',
@@ -42,5 +42,5 @@ export const $Number = CustomField<string, number>({
         }
     },
 
-    inputProps: $Decimal.defaults.inputProps,
+    inputProps: decimal.defaults.inputProps,
 });

@@ -3,7 +3,7 @@ import { DateTimeParseException, LocalTime } from 'js-joda';
 import { Invalid, Result, Valid } from '../Result';
 import { Field } from './Field';
 
-export const $Time = CustomField<string, LocalTime>({
+export const time = CustomField<string, LocalTime>({
     blankInput: '',
 
     parse(this: Field<string, LocalTime>, input: string): Result<LocalTime> {

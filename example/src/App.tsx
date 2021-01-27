@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-    $Button,
+    button,
     $Checkbox,
     $Checklist,
     $Date,
@@ -99,7 +99,7 @@ function App() {
                 }),
                 autoRenew: $Checkbox('Automatically renew my subscription'),
             },
-            submit: $Button('Create account', {
+            submit: button('Create account', {
                 async onValid(values) {
                     await new Promise((r) => setTimeout(r, 2000));
                     alert(JSON.stringify(values, null, '  '));

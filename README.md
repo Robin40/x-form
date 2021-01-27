@@ -6,39 +6,38 @@
 
 Created at [The Dog Company](https://thedogcompany.cl/)
 
-## Install (yarn)
-- Install the peer dependencies
+### <img src="https://images.emojiterra.com/google/android-oreo/512px/1f389.png" width="16"/> Good news!
+> You can already use the new nomenclature for fields, e.g. `text` instead of `$Text`, for versions `>= 3.2.0`.
+
+## Installation
+
+- Install x-form and its peer dependencies, using your package manager of choice
+
+### Option 1: `npm`
 ```bash
-yarn add immutable js-joda decimal.js
+npm install --save @tdc-cl/x-form immutable js-joda decimal.js
 ```
 
-- Then install x-form
+### Option 2: `yarn`
 ```bash
-yarn add @tdc-cl/x-form
+yarn add @tdc-cl/x-form immutable js-joda decimal.js
 ```
 
-## Install (npm)
-- Install the peer dependencies
-```bash
-npm install --save immutable js-joda decimal.js
-```
+---
 
-- Then install x-form
-```bash
-npm install --save @tdc-cl/x-form
-```
+> For TypeScript users, type definitions are already included, so you don't need to install a `@types/...` package.
 
 ## Basic usage
 Let's create a login form
 ```typescript jsx
-import { useForm, $Form, text, password, checkbox, $Button } from '@tdc-cl/x-form';
+import { useForm, $Form, $Text, $Password, $Checkbox, $Button } from '@tdc-cl/x-form';
 
 function MyLoginFormComponent() {
     const form = useForm($Form({
         fields: {
-            user: text('Username'),
-            pass: password(),
-            remember: checkbox('Remember me'),
+            user: $Text('Username'),
+            pass: $Password(),
+            remember: $Checkbox('Remember me'),
         },
         submit: $Button('Log in', {
             async onValid(values) {
@@ -51,11 +50,10 @@ function MyLoginFormComponent() {
     return form.render();
 }
 ```
-And that's all you need.
 
 ## Documentation
 
-See the rest of the documentation (WIP) at https://hackmd.io/izREMyHCQAKNmNZOq7ujmw
+https://hackmd.io/izREMyHCQAKNmNZOq7ujmw
 
 ## License
 

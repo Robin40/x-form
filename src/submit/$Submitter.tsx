@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { $Button } from './$Button';
+import { ButtonSpec } from './button';
 import { ReactElement } from 'react';
 import { ButtonProps } from '../utils/htmlProps';
 import { Submitter } from './Submitter';
@@ -17,7 +17,7 @@ export type OnInvalid = (form: Form) => void;
 
 interface I$Submitter {
     readonly config: SubmitConfig;
-    with(config: Partial<SubmitConfig>): $Button;
+    with(config: Partial<SubmitConfig>): ButtonSpec;
 }
 
 export class $Submitter implements I$Submitter {

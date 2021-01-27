@@ -4,7 +4,7 @@ import { Set } from 'immutable';
 import { Valid } from '../Result';
 import { Field } from './Field';
 import _ from 'lodash';
-import { acceptBoolean } from './$Checkbox';
+import { acceptBoolean } from './checkbox';
 
 type S = Set<string>;
 type T = Set<string>;

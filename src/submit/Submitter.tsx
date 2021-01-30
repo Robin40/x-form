@@ -72,9 +72,14 @@ export class Submitter implements ISubmitter {
 
         form.state[setSubmitError](null);
         form.state[setIsSubmitting](true);
-        return this.onValid(values)
-            .catch(form.state[setSubmitError])
-            .finally(() => form.state[setIsSubmitting](false));
+        try {
+            await this.onValid(values);
+        } catch (err) {
+            form.state[setSubmitError](err);
+            this.onError(err, form);
+        } finally {
+            form.state[setIsSubmitting](false);
+        }
     }
 
     private readonly onValid = this.config.onValid;
@@ -106,6 +111,12 @@ export class Submitter implements ISubmitter {
         firstInvalidField.focus({
             preventScroll: scrollToField(firstInvalidField),
         });
+    }
+
+    private onError = this.config.onError ?? Submitter.defaultOnError;
+
+    private static defaultOnError(err: Error /*, form: Form */): void {
+        throw err;
     }
 }
 

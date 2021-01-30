@@ -9,11 +9,13 @@ export interface SubmitConfig {
     readonly label?: string | ReactElement;
     readonly onValid: OnValid;
     readonly onInvalid?: OnInvalid | 'disable';
+    readonly onError?: OnError;
     readonly buttonProps?: ButtonProps;
 }
 
 export type OnValid = (values: any) => Promise<void>;
 export type OnInvalid = (form: Form) => void;
+export type OnError = (err: Error, form: Form) => void;
 
 interface I$Submitter {
     readonly config: SubmitConfig;

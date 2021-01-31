@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Option } from '../fields/EnumOption';
-import { useMountEffect } from './useMountEffect';
+import { Option } from './EnumOption';
+import { useMountEffect } from '../utils/useMountEffect';
 import _ from 'lodash/fp';
-import { AsyncOptions, FieldOption, Options } from '../fields/FieldSpec';
+import { AsyncOptions, FieldOption, Options } from './FieldSpec';
 
 export interface InputState<S> {
     readonly value: S;

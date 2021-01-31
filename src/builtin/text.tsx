@@ -1,7 +1,7 @@
-import { CustomField } from './CustomField';
+import { CustomField } from '../core/CustomField';
 import { removeExcessWhitespace } from '../utils/utils';
-import { Valid } from '../Result';
-import { Field } from './Field';
+import { Valid } from '../core/Result';
+import { Field } from '../core/Field';
 
 export const text = CustomField<string, string>({
     category: 'textual',

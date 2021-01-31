@@ -1,7 +1,7 @@
-import { CustomField } from './CustomField';
+import { CustomField } from '../core/CustomField';
 import { removeExcessWhitespace } from '../utils/utils';
-import { Result, Valid } from '../Result';
-import { Field } from './Field';
+import { Result, Valid } from '../core/Result';
+import { Field } from '../core/Field';
 import { decimal, inferAllowedDecimalsFrom, parseDecimal } from './decimal';
 import { Decimal } from 'decimal.js';
 import _ from 'lodash';

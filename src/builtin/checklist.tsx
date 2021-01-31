@@ -1,8 +1,8 @@
 import React from 'react';
-import { CustomField } from './CustomField';
+import { CustomField } from '../core/CustomField';
 import { Set } from 'immutable';
-import { Valid } from '../Result';
-import { Field } from './Field';
+import { Valid } from '../core/Result';
+import { Field } from '../core/Field';
 import _ from 'lodash';
 import { acceptBoolean } from './checkbox';
 

@@ -1,8 +1,8 @@
 import { LocalDate, DateTimeParseException } from 'js-joda';
-import { CustomField } from './CustomField';
-import { Invalid, Result, Valid } from '../Result';
+import { CustomField } from '../core/CustomField';
+import { Invalid, Result, Valid } from '../core/Result';
 import _ from 'lodash';
-import { Field } from './Field';
+import { Field } from '../core/Field';
 
 export const date = CustomField<string, LocalDate>({
     blankInput: '',

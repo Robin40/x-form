@@ -1,8 +1,8 @@
-import { CustomField } from './CustomField';
+import { CustomField } from '../core/CustomField';
 import React from 'react';
-import { Option } from './EnumOption';
-import { Result, Valid } from '../Result';
-import { Field } from './Field';
+import { Option } from '../core/EnumOption';
+import { Result, Valid } from '../core/Result';
+import { Field } from '../core/Field';
 import _ from 'lodash';
 
 export const select = CustomField<string, Option>({

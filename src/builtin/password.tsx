@@ -1,5 +1,5 @@
 import { text } from './text';
-import { CustomField } from './CustomField';
+import { CustomField } from '../core/CustomField';
 
 export const password = CustomField.extends(text).with({
     label: 'Password',

@@ -7,8 +7,8 @@ import {
     Options,
 } from './FieldSpec';
 import { InputProps, LabelProps, TextAreaProps } from '../utils/htmlProps';
-import { InputState } from '../utils/useInputState';
-import { Invalid, Predicate, Result, ResultType, Valid } from '../Result';
+import { InputState } from './useInputState';
+import { Invalid, Predicate, Result, ResultType, Valid } from './Result';
 import Immutable from 'immutable';
 import deepExtend from 'deep-extend';
 import { Theme } from './Theme';
@@ -19,9 +19,9 @@ import {
     removeExcessWhitespace,
     scrollToTop,
 } from '../utils/utils';
-import { Form } from '../Form';
+import { Form } from './Form';
 import _ from 'lodash';
-import { XFormLocale } from '../XFormLocale';
+import { XFormLocale } from './XFormLocale';
 
 export const setForm = Symbol('setForm');
 export const describe = Symbol('describe');
@@ -47,7 +47,7 @@ interface IField<S, T> {
     readonly allowNegative: boolean;
 
     /** True if the field is optional, i.e was wrapped in an `optional`.
-     * By default all built-in fields are required. */
+     * By default all built-in builtin are required. */
     readonly isOptional: boolean;
 
     readonly result: Result<T>;
@@ -248,7 +248,7 @@ export class Field<S, T> implements IField<S, T> {
      * Example
      * ```
      * const form = useForm($Form({
-     *     fields: {
+     *     builtin: {
      *         maritalStatus: $Select('Marital status').with({
      *             options: ['Single', 'Married', ...]
      *         }),
@@ -256,7 +256,7 @@ export class Field<S, T> implements IField<S, T> {
      *     },
      *     ...
      * }));
-     * const { maritalStatus } = form.fields;
+     * const { maritalStatus } = form.builtin;
      * maritalStatus.is('Married')
      * ```
      * */
@@ -267,7 +267,7 @@ export class Field<S, T> implements IField<S, T> {
      *
      * Example:
      * ```
-     * const { income } = form.fields;
+     * const { income } = form.builtin;
      * const over9000 = x => x > 9000;
      * income.is(over900)
      * ``` */

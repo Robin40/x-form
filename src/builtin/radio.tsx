@@ -1,7 +1,7 @@
 import React from 'react';
-import { CustomField } from './CustomField';
-import { Valid } from '../Result';
-import { Option } from './EnumOption';
+import { CustomField } from '../core/CustomField';
+import { Valid } from '../core/Result';
+import { Option } from '../core/EnumOption';
 import { select, acceptOption } from './select';
 
 export const radio = CustomField<string, Option>({

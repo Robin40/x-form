@@ -1,15 +1,15 @@
 import { ButtonProps } from '../utils/htmlProps';
 import React, { ReactElement } from 'react';
 import { SubmitConfig } from './$Submitter';
-import { Form } from '../Form';
+import { Form } from './Form';
 import {
     setHasBeenSubmitted,
     setIsSubmitting,
     setSubmitError,
-} from '../useFormState';
+} from './useFormState';
 import { scrollToTop } from '../utils/utils';
 import _ from 'lodash';
-import { scrollToField, setForm } from '../fields/Field';
+import { scrollToField, setForm } from './Field';
 
 interface ISubmitter {
     readonly config: SubmitConfig;

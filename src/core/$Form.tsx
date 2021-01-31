@@ -1,8 +1,8 @@
-import { FieldSpec, useField } from './fields/FieldSpec';
+import { FieldSpec, useField } from './FieldSpec';
 import _ from 'lodash';
-import { $Submitter, useSubmitter } from './submit/$Submitter';
+import { $Submitter, useSubmitter } from './$Submitter';
 import { Form } from './Form';
-import { FormProps } from './utils/htmlProps';
+import { FormProps } from '../utils/htmlProps';
 import { useFormState } from './useFormState';
 
 export interface FormConfig {

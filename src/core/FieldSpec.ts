@@ -2,22 +2,22 @@ import _ from 'lodash';
 import { ReactElement, useContext, useMemo, useRef } from 'react';
 import { InputProps } from '../utils/htmlProps';
 import { Field } from './Field';
-import { useInputState } from '../utils/useInputState';
-import { Result } from '../Result';
+import { useInputState } from './useInputState';
+import { Result } from './Result';
 import { defaultTheme, Theme } from './Theme';
 import { EnumOption } from './EnumOption';
-import { XFormContext } from '../XFormContext';
+import { XFormContext } from './XFormContext';
 
 export interface FieldConfig<S, T> {
     readonly label?: string | ReactElement;
     readonly inputProps?: InputProps;
     readonly options?: Options;
 
-    /** For numeric fields, `true` means zero
+    /** For numeric builtin, `true` means zero
      * is not a valid value for this field. */
     readonly nonZero?: boolean;
 
-    /** For numeric fields, `true` if negative numbers are valid
+    /** For numeric builtin, `true` if negative numbers are valid
      * for this field. By default negative numbers are not valid. */
     readonly allowNegative?: boolean;
 

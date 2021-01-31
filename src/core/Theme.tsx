@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, ReactElement } from 'react';
-import { Invalid } from '../Result';
+import { Invalid } from './Result';
 import { Field } from './Field';
 
 export interface Theme {

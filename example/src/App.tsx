@@ -116,7 +116,7 @@ function App() {
             dob: '1996-04-12',
             tob: LocalTime.now(),
             gender: 'M',
-            bio: 'meow :3',
+            bio: 'core :3',
             income: Decimal.acos(-1),
             checklist: {
                 Spam: true,

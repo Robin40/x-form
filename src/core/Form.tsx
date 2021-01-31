@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import { FormConfig } from './$Form';
-import { Field, setForm } from './fields/Field';
-import { Submitter } from './submit/Submitter';
+import { Field, setForm } from './Field';
+import { Submitter } from './Submitter';
 import _ from 'lodash';
-import { FormProps } from './utils/htmlProps';
+import { FormProps } from '../utils/htmlProps';
 import { FormState } from './useFormState';
 
 interface IForm {

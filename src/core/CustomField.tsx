@@ -76,7 +76,7 @@ function makeCustomField(): ICustomField {
      * });
      * ```
      *
-     * You can also extend custom fields, the
+     * You can also extend custom builtin, the
      * base doesn't need to be a built-in field.
      * ``` */
     // eslint-disable-next-line dot-notation

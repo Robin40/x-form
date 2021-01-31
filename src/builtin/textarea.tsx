@@ -1,4 +1,4 @@
-import { CustomField } from './CustomField';
+import { CustomField } from '../core/CustomField';
 import React from 'react';
 import { text } from './text';
 

@@ -1,5 +1,5 @@
-import { CustomField } from './CustomField';
-import { Valid } from '../Result';
+import { CustomField } from '../core/CustomField';
+import { Valid } from '../core/Result';
 import React from 'react';
 import _ from 'lodash';
 

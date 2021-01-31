@@ -1,7 +1,7 @@
-import { CustomField } from './CustomField';
+import { CustomField } from '../core/CustomField';
 import { DateTimeParseException, LocalTime } from 'js-joda';
-import { Invalid, Result, Valid } from '../Result';
-import { Field } from './Field';
+import { Invalid, Result, Valid } from '../core/Result';
+import { Field } from '../core/Field';
 
 export const time = CustomField<string, LocalTime>({
     blankInput: '',

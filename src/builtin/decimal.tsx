@@ -1,11 +1,11 @@
-import { CustomField } from './CustomField';
+import { CustomField } from '../core/CustomField';
 import { Decimal } from 'decimal.js';
-import { Invalid, Result, Valid } from '../Result';
-import { Field } from './Field';
+import { Invalid, Result, Valid } from '../core/Result';
+import { Field } from '../core/Field';
 import { InputProps } from '../utils/htmlProps';
 import { removeExcessWhitespace } from '../utils/utils';
 import _ from 'lodash';
-import { XFormLocale } from '../XFormLocale';
+import { XFormLocale } from '../core/XFormLocale';
 
 export const decimal = CustomField<string, Decimal>({
     category: 'numeric',
@@ -80,7 +80,7 @@ export function parseDecimal(
     }
 
     /* An special message for those QA people that fill integer
-     * fields like "Number of children" with decimal numbers */
+     * builtin like "Number of children" with decimal numbers */
     if (!allowedDecimals && !integerRegex.test(input)) {
         return Invalid(locale.mustBeInt);
     }

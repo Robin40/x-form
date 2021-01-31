@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { $Submitter, OnValid, SubmitConfig } from './$Submitter';
+import { $Submitter, OnValid, SubmitConfig } from '../core/$Submitter';
 
 export interface ButtonSpec {
     readonly config: SubmitConfig;

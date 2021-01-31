@@ -1,24 +1,24 @@
-import { $Form, FormConfig, useForm } from './$Form';
-import { checkbox, acceptBoolean } from './fields/checkbox';
-import { checklist } from './fields/checklist';
-import { date } from './fields/date';
-import { decimal } from './fields/decimal';
-import { FieldSpec, FieldConfig, FieldDefaults } from './fields/FieldSpec';
-import { number } from './fields/number';
-import { password } from './fields/password';
-import { radio } from './fields/radio';
-import { select } from './fields/select';
-import { text } from './fields/text';
-import { textarea } from './fields/textarea';
-import { time } from './fields/time';
-import { CustomField } from './fields/CustomField';
-import { EnumOption, Option, OptionWithProps } from './fields/EnumOption';
-import { Field, scrollToField } from './fields/Field';
-import { optional } from './fields/optional';
-import { Theme } from './fields/Theme';
-import { Invalid, Result, Valid } from './Result';
-import { $Submitter, SubmitConfig } from './submit/$Submitter';
-import { FormState } from './useFormState';
+import { $Form, FormConfig, useForm } from './core/$Form';
+import { checkbox, acceptBoolean } from './builtin/checkbox';
+import { checklist } from './builtin/checklist';
+import { date } from './builtin/date';
+import { decimal } from './builtin/decimal';
+import { FieldSpec, FieldConfig, FieldDefaults } from './core/FieldSpec';
+import { number } from './builtin/number';
+import { password } from './builtin/password';
+import { radio } from './builtin/radio';
+import { select } from './builtin/select';
+import { text } from './builtin/text';
+import { textarea } from './builtin/textarea';
+import { time } from './builtin/time';
+import { CustomField } from './core/CustomField';
+import { EnumOption, Option, OptionWithProps } from './core/EnumOption';
+import { Field, scrollToField } from './core/Field';
+import { optional } from './core/optional';
+import { Theme } from './core/Theme';
+import { Invalid, Result, Valid } from './core/Result';
+import { $Submitter, SubmitConfig } from './core/$Submitter';
+import { FormState } from './core/useFormState';
 import {
     ButtonProps,
     FormProps,
@@ -26,11 +26,12 @@ import {
     InputProps,
     TextAreaProps,
 } from './utils/htmlProps';
-import { InputState } from './utils/useInputState';
+import { InputState } from './core/useInputState';
 import { removeExcessWhitespace } from './utils/utils';
-import { XFormContext } from './XFormContext';
-import { english, spanish } from './XFormLocale';
-import { button, ButtonSpec } from './submit/button';
+import { XFormContext } from './core/XFormContext';
+import { english, spanish } from './core/XFormLocale';
+import { button, ButtonSpec } from './builtin/button';
+import { Form } from './core/Form';
 
 export {
     button,
@@ -70,6 +71,7 @@ export {
     Field,
     FieldSpec,
     FieldSpec as $Field,
+    Form,
     Invalid,
     Option,
     OptionWithProps,

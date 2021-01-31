@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import { ButtonSpec } from './button';
+import { ButtonSpec } from '../builtin/button';
 import { ReactElement } from 'react';
 import { ButtonProps } from '../utils/htmlProps';
 import { Submitter } from './Submitter';
-import { Form } from '../Form';
+import { Form } from './Form';
 
 export interface SubmitConfig {
     readonly label?: string | ReactElement;

@@ -130,11 +130,14 @@ export class Field<S, T> implements IField<S, T> {
         this.locale.fieldIsRequired
     );
 
+    private readonly defaultBlankOption = this.locale.selectAnOption;
+
     private readonly defaultMethods = {
         options: this.defaultOptions,
         preprocess: this.defaultPreprocess,
         isBlank: this.defaultIsBlank,
         blankResult: this.defaultBlankResult,
+        blankOption: this.defaultBlankOption,
     };
 
     private readonly methods = _.merge(
@@ -148,6 +151,7 @@ export class Field<S, T> implements IField<S, T> {
     readonly preprocess = this.methods.preprocess.bind(this);
     readonly isBlank = this.methods.isBlank.bind(this);
     readonly blankResult = this.methods.blankResult;
+    readonly blankOption = this.methods.blankOption;
     readonly parse = this.methods.parse.bind(this);
     readonly validate = this.methods.validate.bind(this);
     readonly category = this.methods.category;

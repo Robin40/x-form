@@ -25,6 +25,12 @@ export interface FieldConfig<S, T> {
 
     preprocess?(input: S): S;
 
+    /** Pass a string to change the '--- Select an option ---' label of a select,
+     * or pass either null or false to remove that option.
+     *
+     * By default locale.selectAnOption is used. */
+    readonly blankOption?: string | null | false;
+
     readonly blankResult?: Result<T>;
 
     readonly render?: Partial<Theme>;

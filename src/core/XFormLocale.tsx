@@ -13,6 +13,7 @@ export interface XFormLocale {
     cantBeZero: string;
     invalidDate: string;
     invalidTime: string;
+    loading: string;
 }
 
 export const english: XFormLocale = {
@@ -29,6 +30,7 @@ export const english: XFormLocale = {
     cantBeZero: "Can't be zero",
     invalidDate: 'Invalid date',
     invalidTime: 'Invalid time',
+    loading: 'Loading...',
 };
 
 export const spanish: XFormLocale = {
@@ -41,8 +43,9 @@ export const spanish: XFormLocale = {
         `No se permite más de ${maxDecimals} decimales`,
     negative: 'No puede ser negativo',
     tooSmall: (min) => `Debe ser al menos ${min}`,
-    tooBig: (max) => `Debe ser al menos ${max}`,
+    tooBig: (max) => `Debe ser a lo más ${max}`,
     cantBeZero: 'No puede ser 0',
     invalidDate: 'Fecha inválida',
     invalidTime: 'Hora inválida',
+    loading: 'Cargando...',
 };

@@ -24,7 +24,12 @@ export const select = CustomField<string, Option>({
         Input({ field }) {
             return (
                 <select {...(field.inputProps as any)}>
-                    <option value=''>{field.locale.selectAnOption}</option>
+                    {_.isString(field.blankOption) ? (
+                        <option value=''>{field.blankOption}</option>
+                    ) : field.input.isLoading ? (
+                        <option value=''>{field.locale.loading}</option>
+                    ) : null}
+
                     {field.options.map(({ value, label }) => (
                         <option value={value} key={value}>
                             {label}

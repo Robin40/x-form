@@ -20,6 +20,7 @@ import {
     useForm,
     Valid,
     XFormContext,
+    select,
 } from '@tdc-cl/x-form';
 import '@tdc-cl/x-form/dist/index.css';
 import { LocalTime } from 'js-joda';
@@ -79,6 +80,13 @@ function App() {
                 dob: $Date('Date of birth'),
                 tob: $Time('Time of birth'),
                 gender: $Gender().editable(),
+                pet: select('Favorite animal').with({
+                    async options() {
+                        await new Promise((r) => setTimeout(r, 2000));
+                        return ['Cat', 'Dog', 'Other'];
+                    },
+                    blankOption: false,
+                }),
                 bio: optional($TextArea('Bio')),
                 rut: optional($Rut()),
                 income: $Decimal('Income').with({

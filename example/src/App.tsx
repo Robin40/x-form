@@ -80,13 +80,12 @@ function App() {
                 dob: $Date('Date of birth'),
                 tob: $Time('Time of birth'),
                 gender: $Gender().editable(),
-                pet: select('Favorite animal').with({
-                    async options() {
-                        await new Promise((r) => setTimeout(r, 2000));
-                        return ['Cat', 'Dog', 'Other'];
-                    },
-                    blankOption: false,
+                pet: select('Favorite pet').with({
+                    options: ['Cat', 'Dog', 'Other'],
                 }),
+                // prettier-ignore
+                specifyPet: text('Specify favorite pet')
+                    .showIf(_ => _.pet.is('Other')),
                 bio: optional($TextArea('Bio')),
                 rut: optional($Rut()),
                 income: $Decimal('Income').with({

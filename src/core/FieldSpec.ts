@@ -7,6 +7,7 @@ import { Result } from './Result';
 import { defaultTheme, Theme } from './Theme';
 import { EnumOption } from './EnumOption';
 import { XFormContext } from './XFormContext';
+import { FormFields } from './Form';
 
 export interface FieldConfig<S, T> {
     readonly label?: string | ReactElement;
@@ -34,6 +35,10 @@ export interface FieldConfig<S, T> {
     readonly blankResult?: Result<T>;
 
     readonly render?: Partial<Theme>;
+
+    /** @internal
+     * The rule passed to `showIf` */
+    showRule?(fields: FormFields): boolean;
 }
 
 export type FieldOption = EnumOption | string;
@@ -68,6 +73,8 @@ interface IFieldSpec<S, T> {
      *
      * @see IFieldSpec.readOnly */
     readOnlyIf(condition: boolean): FieldSpec<S, T>;
+
+    showIf(rule: (fields: FormFields) => boolean): FieldSpec<S, T>;
 }
 
 export type FieldCategory = 'textual' | 'numeric' | 'enum' | 'binary';
@@ -112,6 +119,12 @@ export class FieldSpec<S, T> implements IFieldSpec<S, T> {
                 'aria-readonly': condition,
                 'aria-disabled': condition,
             },
+        });
+    }
+
+    showIf(rule: (fields: FormFields) => boolean): FieldSpec<S, T> {
+        return this.with({
+            showRule: rule,
         });
     }
 }

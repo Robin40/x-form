@@ -1,12 +1,13 @@
 import { InputProps, LabelProps } from '../utils/htmlProps';
 import Immutable, { ValueObject } from 'immutable';
+import { Being } from './Being';
 
 export interface EnumOption {
     readonly value: string;
     readonly label: string;
 }
 
-export class Option implements EnumOption, ValueObject {
+export class Option implements EnumOption, ValueObject, Being {
     readonly value: string;
     readonly label: string;
 
@@ -29,6 +30,10 @@ export class Option implements EnumOption, ValueObject {
 
     hashCode(): number {
         return Immutable.hash(this.value) ^ Immutable.hash(this.label);
+    }
+
+    is(s: string): boolean {
+        return this.value === s || this.label === s;
     }
 }
 

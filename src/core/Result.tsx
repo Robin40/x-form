@@ -1,5 +1,6 @@
 import Immutable, { ValueObject } from 'immutable';
 import _ from 'lodash';
+import { isBeing } from './Being';
 
 /***
  *    ██████╗ ███████╗███████╗██╗   ██╗██╗  ████████╗
@@ -151,6 +152,10 @@ class $Valid<T> extends Result<T> {
 
         if (_.isFunction(arg)) {
             return arg(this.value);
+        }
+
+        if (isBeing(this.value)) {
+            return this.value.is(arg);
         }
 
         return Immutable.is(this.value, arg);

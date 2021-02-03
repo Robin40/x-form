@@ -80,7 +80,9 @@ interface IField<S, T> {
 
     optionInputProps(option: Option): InputProps;
 
-    render(): ReactElement;
+    shouldBeShown: boolean;
+
+    render(): ReactElement | null;
 
     focus: HTMLInputElement['focus'];
 
@@ -132,12 +134,18 @@ export class Field<S, T> implements IField<S, T> {
 
     private readonly defaultBlankOption = this.locale.selectAnOption;
 
+    // noinspection JSMethodCanBeStatic
+    private defaultShowRule(): boolean {
+        return true;
+    }
+
     private readonly defaultMethods = {
         options: this.defaultOptions,
         preprocess: this.defaultPreprocess,
         isBlank: this.defaultIsBlank,
         blankResult: this.defaultBlankResult,
         blankOption: this.defaultBlankOption,
+        showRule: this.defaultShowRule,
     };
 
     private readonly methods = _.merge(
@@ -157,6 +165,7 @@ export class Field<S, T> implements IField<S, T> {
     readonly category = this.methods.category;
     readonly nonZero = this.methods.nonZero ?? false;
     readonly allowNegative = this.methods.allowNegative ?? false;
+    private readonly showRule = this.methods.showRule.bind(this);
 
     readonly isOptional = this.blankResult instanceof Valid;
 
@@ -340,7 +349,15 @@ export class Field<S, T> implements IField<S, T> {
         };
     }
 
-    render(): ReactElement {
+    get shouldBeShown(): boolean {
+        return this.showRule(this.form.fields);
+    }
+
+    render(): ReactElement | null {
+        if (!this.shouldBeShown) {
+            return null;
+        }
+
         const { Field } = this.theme;
         return <Field field={this} />;
     }

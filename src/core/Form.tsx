@@ -13,6 +13,7 @@ interface IForm {
     readonly state: FormState;
     readonly hasBeenSubmitted: boolean;
     readonly props: FormProps;
+    readonly shownFields: FormFields;
     readonly isValid: boolean;
 
     fillWith(data: object): void;
@@ -60,12 +61,20 @@ export class Form implements IForm {
         };
     }
 
+    get shownFields(): FormFields {
+        return this.lazyShownFields();
+    }
+
+    private lazyShownFields = lazy<FormFields>(() => {
+        return _.pickBy(this.fields, 'shouldBeShown');
+    });
+
     get isValid(): boolean {
-        return this.lazyIsValid.get();
+        return this.lazyIsValid();
     }
 
     private lazyIsValid = lazy<boolean>(() => {
-        return _.every(this.fields, 'isValid');
+        return _.every(this.shownFields, 'isValid');
     });
 
     fillWith(data: object): void {
@@ -104,19 +113,17 @@ export class Form implements IForm {
     }
 
     getValuesAssumingTheyAreValid(): FormValues {
-        return _.mapValues(this.fields, Field.getValueAssumingItIsValid);
+        return _.mapValues(this.shownFields, Field.getValueAssumingItIsValid);
     }
 }
 
 function lazy<T>(init: () => T) {
     let value: T | typeof UNINITIALIZED = UNINITIALIZED;
-    return {
-        get() {
-            if (value === UNINITIALIZED) {
-                value = init();
-            }
-            return value;
-        },
+    return () => {
+        if (value === UNINITIALIZED) {
+            value = init();
+        }
+        return value;
     };
 }
 

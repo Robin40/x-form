@@ -14,11 +14,17 @@ interface IForm {
     readonly hasBeenSubmitted: boolean;
     readonly props: FormProps;
     readonly isValid: boolean;
+
     fillWith(data: object): void;
+
     render(): ReactElement;
+
     renderFields(): ReactElement;
+
     renderSubmit(): ReactElement;
+
     submit(): Promise<void>;
+
     getValuesAssumingTheyAreValid(): FormValues;
 }
 
@@ -54,7 +60,13 @@ export class Form implements IForm {
         };
     }
 
-    readonly isValid = _.every(this.fields, 'isValid');
+    get isValid(): boolean {
+        return this.lazyIsValid.get();
+    }
+
+    private lazyIsValid = lazy<boolean>(() => {
+        return _.every(this.fields, 'isValid');
+    });
 
     fillWith(data: object): void {
         _.forEach(data, (value, key) => {
@@ -95,3 +107,17 @@ export class Form implements IForm {
         return _.mapValues(this.fields, Field.getValueAssumingItIsValid);
     }
 }
+
+function lazy<T>(init: () => T) {
+    let value: T | typeof UNINITIALIZED = UNINITIALIZED;
+    return {
+        get() {
+            if (value === UNINITIALIZED) {
+                value = init();
+            }
+            return value;
+        },
+    };
+}
+
+const UNINITIALIZED = Symbol('UNINITIALIZED');

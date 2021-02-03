@@ -36,6 +36,8 @@ export interface FieldConfig<S, T> {
 
     readonly render?: Partial<Theme>;
 
+    readonly initialInput?: S;
+
     /** @internal
      * The rule passed to `showIf` */
     showRule?(fields: FormFields): boolean;
@@ -135,7 +137,12 @@ export function useField<S, T>(
 ): Field<S, T> {
     const { locale } = useContext(XFormContext);
     const optionsMethod = field.config.options ?? field.defaults.options ?? [];
-    const input = useInputState(field.defaults.blankInput, optionsMethod);
+    const input = useInputState(
+        field.config.initialInput ??
+            field.defaults.initialInput ??
+            field.defaults.blankInput,
+        optionsMethod
+    );
     const containerRef = useRef(null);
     const inputRef = useRef(null);
     const textAreaRef = useRef(null);

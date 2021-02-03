@@ -57,6 +57,7 @@ function App() {
         $Form({
             fields: {
                 user: text('Username').with({
+                    initialInput: 'Joe',
                     render: {
                         Input({ field }) {
                             return (
@@ -82,6 +83,7 @@ function App() {
                 gender: $Gender().editable(),
                 pet: select('Favorite pet').with({
                     options: ['Cat', 'Dog', 'Other'],
+                    initialInput: 'Cat',
                 }),
                 // prettier-ignore
                 specifyPet: text('Specify favorite pet')

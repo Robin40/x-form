@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-    button,
     $Checkbox,
     $Checklist,
     $Date,
@@ -10,17 +9,18 @@ import {
     $Number,
     $Password,
     $Radio,
-    text,
     $TextArea,
     $Time,
+    button,
     CustomField,
     Invalid,
     optional,
+    select,
     spanish,
+    text,
     useForm,
     Valid,
     XFormContext,
-    select,
 } from '@tdc-cl/x-form';
 import '@tdc-cl/x-form/dist/index.css';
 import { LocalTime } from 'js-joda';
@@ -134,12 +134,18 @@ function App() {
         });
     }
 
+    const incomeIsFocused = form.fields.income.input.isFocused;
+
     return (
         <XFormContext.Provider value={{ locale: spanish }}>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <div style={{ padding: '1em' }}>
                     {form.render()}
                     <button onClick={autoFill}>Autofill</button>
+
+                    <pre>
+                        {JSON.stringify({ incomeIsFocused }, null, '    ')}
+                    </pre>
                 </div>
                 {/*<InfoProyecto />*/}
             </div>

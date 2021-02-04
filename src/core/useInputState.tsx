@@ -8,6 +8,9 @@ export interface InputState<S> {
     readonly value: S;
     readonly setValue: Dispatch<SetStateAction<S>>;
 
+    readonly isFocused: boolean;
+    readonly setIsFocused: Dispatch<SetStateAction<boolean>>;
+
     readonly hasBeenBlurred: boolean;
     readonly setHasBeenBlurred: Dispatch<SetStateAction<boolean>>;
 
@@ -21,6 +24,7 @@ export function useInputState<S>(
     optionsObject: Options
 ): InputState<S> {
     const [value, setValue] = useState(initialState);
+    const [isFocused, setIsFocused] = useState(false);
     const [hasBeenBlurred, setHasBeenBlurred] = useState(false);
 
     const [isLoading, setIsLoading] = useState(isAsync(optionsObject));
@@ -42,6 +46,8 @@ export function useInputState<S>(
     return {
         value,
         setValue,
+        isFocused,
+        setIsFocused,
         hasBeenBlurred,
         setHasBeenBlurred,
         isLoading,

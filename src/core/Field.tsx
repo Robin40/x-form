@@ -192,6 +192,12 @@ export class Field<S, T> implements IField<S, T> {
                 config.inputProps?.onChange?.bind(field)?.(event);
             },
 
+            onFocus(event) {
+                field.defaultOnFocus(event);
+                defaults.inputProps?.onFocus?.bind(field)?.(event);
+                config.inputProps?.onFocus?.bind(field)?.(event);
+            },
+
             onBlur(event) {
                 field.defaultOnBlur(event);
                 defaults.inputProps?.onBlur?.bind(field)?.(event);
@@ -219,7 +225,12 @@ export class Field<S, T> implements IField<S, T> {
         this.input.setValue(event.target.value as any);
     }
 
+    private defaultOnFocus(_event: FocusEvent<HTMLDivElement>) {
+        this.input.setIsFocused(true);
+    }
+
     private defaultOnBlur(_event: FocusEvent<HTMLInputElement>) {
+        this.input.setIsFocused(false);
         this.input.setHasBeenBlurred(true);
     }
 

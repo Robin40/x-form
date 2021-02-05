@@ -5,6 +5,7 @@ import { Submitter } from './Submitter';
 import _ from 'lodash';
 import { FormProps } from '../utils/htmlProps';
 import { FormState, setHasBeenSubmitted, setSubmitError } from './useFormState';
+import autoBind from 'auto-bind';
 
 interface IForm {
     readonly config: FormConfig;
@@ -46,6 +47,8 @@ export class Form implements IForm {
     ) {
         _.forEach(fields, (field) => field[setForm](this));
         submitter[setForm](this);
+
+        autoBind(this);
     }
 
     readonly hasBeenSubmitted = this.state.hasBeenSubmitted;

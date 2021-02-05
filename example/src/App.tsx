@@ -142,7 +142,7 @@ function App() {
                 <div style={{ padding: '1em' }}>
                     {form.render()}
                     <button onClick={autoFill}>Autofill</button>
-                    <button onClick={() => form.reset()}>Reset</button>
+                    <button onClick={form.reset}>Reset</button>
 
                     <pre>
                         {JSON.stringify({ incomeIsFocused }, null, '    ')}

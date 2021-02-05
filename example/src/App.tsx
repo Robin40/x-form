@@ -125,7 +125,7 @@ function App() {
             dob: '1996-04-12',
             tob: LocalTime.now(),
             gender: 'M',
-            bio: 'core :3',
+            bio: 'meow :3',
             income: Decimal.acos(-1),
             checklist: {
                 Spam: true,
@@ -142,6 +142,7 @@ function App() {
                 <div style={{ padding: '1em' }}>
                     {form.render()}
                     <button onClick={autoFill}>Autofill</button>
+                    <button onClick={() => form.reset()}>Reset</button>
 
                     <pre>
                         {JSON.stringify({ incomeIsFocused }, null, '    ')}

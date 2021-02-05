@@ -87,6 +87,8 @@ interface IField<S, T> {
     focus: HTMLInputElement['focus'];
 
     fillWith(data: any): void;
+
+    reset(): void;
 }
 
 export class Field<S, T> implements IField<S, T> {
@@ -414,6 +416,11 @@ export class Field<S, T> implements IField<S, T> {
         if (data.constructor === (this.input.value as any).constructor) {
             return data;
         }
+    }
+
+    reset(): void {
+        this.input.setValue(this.input.initialValue);
+        this.input.setHasBeenBlurred(false);
     }
 }
 

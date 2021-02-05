@@ -4,7 +4,7 @@ import { Field, setForm } from './Field';
 import { Submitter } from './Submitter';
 import _ from 'lodash';
 import { FormProps } from '../utils/htmlProps';
-import { FormState } from './useFormState';
+import { FormState, setHasBeenSubmitted, setSubmitError } from './useFormState';
 
 interface IForm {
     readonly config: FormConfig;
@@ -27,6 +27,8 @@ interface IForm {
     submit(): Promise<void>;
 
     getValuesAssumingTheyAreValid(): FormValues;
+
+    reset(): void;
 }
 
 export type FormFields = Record<string, Field<any, any>>;
@@ -114,6 +116,12 @@ export class Form implements IForm {
 
     getValuesAssumingTheyAreValid(): FormValues {
         return _.mapValues(this.shownFields, Field.getValueAssumingItIsValid);
+    }
+
+    reset(): void {
+        _.forEach(this.fields, (field) => field.reset());
+        this.state[setHasBeenSubmitted](false);
+        this.state[setSubmitError](null);
     }
 }
 

@@ -17,13 +17,15 @@ export interface InputState<S> {
     readonly isLoading: boolean;
     readonly error: Error | null;
     readonly options: Option[];
+
+    readonly initialValue: S;
 }
 
 export function useInputState<S>(
-    initialState: S,
+    initialValue: S,
     optionsObject: Options
 ): InputState<S> {
-    const [value, setValue] = useState(initialState);
+    const [value, setValue] = useState(initialValue);
     const [isFocused, setIsFocused] = useState(false);
     const [hasBeenBlurred, setHasBeenBlurred] = useState(false);
 
@@ -53,6 +55,7 @@ export function useInputState<S>(
         isLoading,
         error,
         options,
+        initialValue,
     };
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "@tdc-cl/x-form",
-  "version": "3.7.0",
+  "version": "3.8.0",
   "description": "Declarative forms for React",
   "author": "Robin40",
   "license": "MIT",

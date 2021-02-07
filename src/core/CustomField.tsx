@@ -135,6 +135,10 @@ function makeCustomField(): ICustomField {
                     );
                 },
 
+                isFocused(this: Field<InferS<F>, InferT<F>>) {
+                    return _.some(this.subFields, 'isFocused');
+                },
+
                 parse(this: Field<InferS<F>, InferT<F>>, inputs) {
                     try {
                         return Valid(

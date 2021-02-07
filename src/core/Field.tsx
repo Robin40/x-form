@@ -88,6 +88,8 @@ interface IField<S, T> {
 
     focus: HTMLInputElement['focus'];
 
+    isFocused: boolean;
+
     fillWith(data: any): void;
 
     reset(): void;
@@ -149,6 +151,10 @@ export class Field<S, T> implements IField<S, T> {
 
     private readonly defaultBlankOption = this.locale.selectAnOption;
 
+    private defaultIsFocused(): boolean {
+        return this.input.isFocused;
+    }
+
     // noinspection JSMethodCanBeStatic
     private defaultShowRule(): boolean {
         return true;
@@ -160,6 +166,7 @@ export class Field<S, T> implements IField<S, T> {
         isBlank: this.defaultIsBlank,
         blankResult: this.defaultBlankResult,
         blankOption: this.defaultBlankOption,
+        isFocused: this.defaultIsFocused,
         showRule: this.defaultShowRule,
     };
 
@@ -180,6 +187,7 @@ export class Field<S, T> implements IField<S, T> {
     readonly category = this.methods.category;
     readonly nonZero = this.methods.nonZero ?? false;
     readonly allowNegative = this.methods.allowNegative ?? false;
+    private readonly getIsFocused = this.methods.isFocused.bind(this);
     private readonly showRule = this.methods.showRule.bind(this);
 
     readonly isOptional = this.blankResult instanceof Valid;
@@ -401,6 +409,10 @@ export class Field<S, T> implements IField<S, T> {
         }
 
         element.focus(options);
+    }
+
+    get isFocused(): boolean {
+        return this.getIsFocused();
     }
 
     fillWith(data: any): void {

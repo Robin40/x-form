@@ -94,6 +94,8 @@ export interface FieldDefaults<S, T> extends FieldConfig<S, T> {
 
     acceptExternal?(data: unknown): S | undefined;
 
+    isFocused?(): boolean;
+
     /** @internal */
     subFields?: Record<string, FieldSpec<any, any>>;
 }

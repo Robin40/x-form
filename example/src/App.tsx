@@ -28,6 +28,7 @@ import '@tdc-cl/x-form/dist/index.css';
 import { LocalTime } from 'js-joda';
 import { Decimal } from 'decimal.js';
 import { $Rut } from './$Rut';
+import _ from 'lodash';
 
 const $Gender = CustomField.extends($Radio).with({
     label: 'Gender',
@@ -150,6 +151,13 @@ function App() {
 
                     <Debug value={form.fields.realEstateValue.input} />
                     <Debug value={form.fields.realEstateValue.result} />
+                    <Debug value={form.fields.realEstateValue.isFocused} />
+                    <Debug
+                        value={_.mapValues(
+                            form.fields.realEstateValue.subFields,
+                            'isFocused'
+                        )}
+                    />
                 </div>
                 {/*<InfoProyecto />*/}
             </div>

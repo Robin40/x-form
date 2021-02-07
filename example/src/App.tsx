@@ -4,7 +4,9 @@ import {
     $Checkbox,
     $Checklist,
     $Date,
+    Debug,
     $Decimal,
+    decimal,
     $Form,
     $Number,
     $Password,
@@ -37,6 +39,11 @@ const $Gender = CustomField.extends($Radio).with({
         ];
     },
 });
+
+const money = CustomField.composite({
+    currency: select().with({ options: ['UF', 'CLP'] }),
+    amount: decimal(),
+}).with({});
 
 function App() {
     const $RepeatPassword = CustomField.extends($Password).with({
@@ -93,6 +100,7 @@ function App() {
                 income: $Decimal('Income').with({
                     inputProps: { min: 2, max: 4 },
                 }),
+                realEstateValue: money('Real estate value'),
                 checklist: $Checklist({
                     options: [
                         { value: 'ToS', label: 'Agree with terms of service' },
@@ -113,8 +121,6 @@ function App() {
                     await new Promise((r) => setTimeout(r, 2000));
                     alert(JSON.stringify(values, null, '  '));
                 },
-
-                onInvalid: 'disable',
             }),
         }) /*.readOnly()*/
     );
@@ -134,8 +140,6 @@ function App() {
         });
     }
 
-    const incomeIsFocused = form.fields.income.input.isFocused;
-
     return (
         <XFormContext.Provider value={{ locale: spanish }}>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -144,9 +148,8 @@ function App() {
                     <button onClick={autoFill}>Autofill</button>
                     <button onClick={form.reset}>Reset</button>
 
-                    <pre>
-                        {JSON.stringify({ incomeIsFocused }, null, '    ')}
-                    </pre>
+                    <Debug value={form.fields.realEstateValue.input} />
+                    <Debug value={form.fields.realEstateValue.result} />
                 </div>
                 {/*<InfoProyecto />*/}
             </div>

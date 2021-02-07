@@ -32,6 +32,7 @@ import { XFormContext } from './core/XFormContext';
 import { english, spanish } from './core/XFormLocale';
 import { button, ButtonSpec } from './builtin/button';
 import { Form } from './core/Form';
+import Debug from './utils/Debug';
 
 export {
     button,
@@ -68,6 +69,7 @@ export {
     spanish,
     useForm,
     CustomField,
+    Debug,
     Field,
     FieldSpec,
     FieldSpec as $Field,

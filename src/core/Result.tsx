@@ -207,8 +207,9 @@ class $Invalid<T> extends Result<T> {
     }
 
     unwrap(errorMessage?: string): T {
-        throw new Error(
-            errorMessage ?? 'Attempted to unwrap an Invalid result'
+        throw new UnwrapError(
+            errorMessage ?? 'Attempted to unwrap an Invalid result',
+            this
         );
     }
 
@@ -234,3 +235,9 @@ export function Invalid<T>(message: string): Invalid<T> {
 
 // make `Invalid("...") instanceof Invalid` to work
 Invalid.prototype = $Invalid.prototype;
+
+export class UnwrapError<T> extends Error {
+    constructor(message: string, readonly result: Invalid<T>) {
+        super(message);
+    }
+}

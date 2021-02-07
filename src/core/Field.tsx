@@ -19,7 +19,7 @@ import {
     removeExcessWhitespace,
     scrollToTop,
 } from '../utils/utils';
-import { Form } from './Form';
+import { Form, FormFields } from './Form';
 import _ from 'lodash';
 import { XFormLocale } from './XFormLocale';
 
@@ -49,6 +49,8 @@ interface IField<S, T> {
     /** True if the field is optional, i.e was wrapped in an `optional`.
      * By default all built-in builtin are required. */
     readonly isOptional: boolean;
+
+    readonly subFields: FormFields;
 
     readonly result: Result<T>;
 
@@ -101,8 +103,13 @@ export class Field<S, T> implements IField<S, T> {
         readonly containerRef: RefObject<HTMLDivElement>,
         readonly inputRef: RefObject<HTMLInputElement>,
         readonly textAreaRef: RefObject<HTMLTextAreaElement>,
-        readonly theme: Theme
-    ) {}
+        readonly theme: Theme,
+        readonly subFields: FormFields
+    ) {
+        _.forEach(subFields, (subField) => {
+            subField.superField = this;
+        });
+    }
 
     private _form: Form | undefined;
 
@@ -118,7 +125,13 @@ export class Field<S, T> implements IField<S, T> {
 
     [setForm](form: Form): void {
         this._form = form;
+        _.forEach(this.subFields, (subField) => {
+            subField[setForm](form);
+        });
     }
+
+    /** @internal */
+    superField?: Field<any, any>;
 
     private readonly defaultOptions: Options = [];
 
@@ -421,6 +434,9 @@ export class Field<S, T> implements IField<S, T> {
     reset(): void {
         this.input.setValue(this.input.initialValue);
         this.input.setHasBeenBlurred(false);
+        _.forEach(this.subFields, (subField) => {
+            subField.reset();
+        });
     }
 }
 

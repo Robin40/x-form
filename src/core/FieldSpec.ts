@@ -93,6 +93,9 @@ export interface FieldDefaults<S, T> extends FieldConfig<S, T> {
     validate(value: T): Result<T>;
 
     acceptExternal?(data: unknown): S | undefined;
+
+    /** @internal */
+    subFields?: Record<string, FieldSpec<any, any>>;
 }
 
 export class FieldSpec<S, T> implements IFieldSpec<S, T> {
@@ -160,6 +163,8 @@ export function useField<S, T>(
         []
     );
 
+    const subFields = _.mapValues(field.defaults.subFields ?? {}, useField);
+
     return new Field(
         locale,
         field.defaults,
@@ -169,6 +174,7 @@ export function useField<S, T>(
         containerRef,
         inputRef,
         textAreaRef,
-        theme
+        theme,
+        subFields
     );
 }

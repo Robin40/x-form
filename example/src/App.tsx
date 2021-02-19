@@ -1,12 +1,11 @@
 import React from 'react';
+import { Set } from 'immutable';
 
 import {
     $Checkbox,
     $Checklist,
     $Date,
-    Debug,
     $Decimal,
-    decimal,
     $Form,
     $Number,
     $Password,
@@ -15,7 +14,10 @@ import {
     $Time,
     button,
     CustomField,
+    Debug,
+    decimal,
     Invalid,
+    Option,
     optional,
     select,
     spanish,
@@ -25,7 +27,7 @@ import {
     XFormContext,
 } from '@tdc-cl/x-form';
 import '@tdc-cl/x-form/dist/index.css';
-import { LocalTime } from 'js-joda';
+import { LocalDate, LocalTime } from 'js-joda';
 import { Decimal } from 'decimal.js';
 import { $Rut } from './$Rut';
 import _ from 'lodash';
@@ -46,6 +48,27 @@ const money = CustomField.composite({
     amount: decimal(),
 }).with({});
 
+interface Account {
+    user: string;
+    pass: string;
+    repeatPass: string;
+    age: number | null;
+    dob: LocalDate;
+    tob: LocalTime;
+    gender: Option;
+    pet: Option;
+    specifyPet?: string;
+    bio: string | null;
+    rut: string | null;
+    income: Decimal;
+    realEstateValue: {
+        currency: Option;
+        amount: Decimal;
+    };
+    checklist: Set<string>;
+    autoRenew: boolean;
+}
+
 function App() {
     const $RepeatPassword = CustomField.extends($Password).with({
         label: 'Repeat password',
@@ -61,7 +84,7 @@ function App() {
         },
     });
 
-    const form = useForm(
+    const form = useForm<Account>(
         $Form({
             fields: {
                 user: text('Username').with({

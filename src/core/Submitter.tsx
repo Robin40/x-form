@@ -11,21 +11,21 @@ import { scrollToTop } from '../utils/utils';
 import _ from 'lodash';
 import { scrollToField, setForm } from './Field';
 
-interface ISubmitter {
-    readonly config: SubmitConfig;
+interface ISubmitter<T> {
+    readonly config: SubmitConfig<T>;
     readonly buttonProps: ButtonProps;
 
     render(): ReactElement;
 
-    submit(form: Form): Promise<void>;
+    submit(form: Form<T>): Promise<void>;
 }
 
-export class Submitter implements ISubmitter {
-    constructor(readonly config: SubmitConfig) {}
+export class Submitter<T> implements ISubmitter<T> {
+    constructor(readonly config: SubmitConfig<T>) {}
 
-    private _form: Form | undefined;
+    private _form: Form<T> | undefined;
 
-    get form(): Form {
+    get form(): Form<T> {
         if (this._form === undefined) {
             throw new Error(
                 `Tried to access parent form before initialization`
@@ -35,7 +35,7 @@ export class Submitter implements ISubmitter {
         return this._form;
     }
 
-    [setForm](form: Form): void {
+    [setForm](form: Form<T>): void {
         this._form = form;
     }
 
@@ -61,7 +61,7 @@ export class Submitter implements ISubmitter {
         return render(this);
     }
 
-    async submit(form: Form): Promise<void> {
+    async submit(form: Form<T>): Promise<void> {
         form.state[setHasBeenSubmitted](true);
 
         if (!form.isValid) {
@@ -84,7 +84,7 @@ export class Submitter implements ISubmitter {
 
     private readonly onValid = this.config.onValid;
 
-    private onInvalid(form: Form): void {
+    private onInvalid(form: Form<T>): void {
         if (this.config.onInvalid === 'disable') {
             return;
         }
@@ -97,7 +97,7 @@ export class Submitter implements ISubmitter {
         return Submitter.defaultOnInvalid(form);
     }
 
-    private static defaultOnInvalid(form: Form): void {
+    private static defaultOnInvalid<T>(form: Form<T>): void {
         const firstInvalidField = _.find(
             form.fields,
             (field) => !field.isValid
@@ -120,6 +120,6 @@ export class Submitter implements ISubmitter {
     }
 }
 
-function render({ config, buttonProps }: Submitter): ReactElement {
+function render<T>({ config, buttonProps }: Submitter<T>): ReactElement {
     return <button {...buttonProps}>{config.label}</button>;
 }

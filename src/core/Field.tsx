@@ -37,10 +37,10 @@ interface IField<S, T> {
     readonly textAreaRef: RefObject<HTMLTextAreaElement>;
     readonly theme: Theme;
 
-    readonly form: Form;
+    readonly form: Form<any>;
 
     /** @internal */
-    [setForm](form: Form): void;
+    [setForm]<T>(form: Form<T>): void;
 
     readonly category?: FieldCategory;
     readonly nonZero: boolean;
@@ -113,9 +113,9 @@ export class Field<S, T> implements IField<S, T> {
         });
     }
 
-    private _form: Form | undefined;
+    private _form: Form<any> | undefined;
 
-    get form(): Form {
+    get form(): Form<any> {
         if (this._form === undefined) {
             throw new Error(
                 `Tried to access parent form before initialization`
@@ -125,8 +125,8 @@ export class Field<S, T> implements IField<S, T> {
         return this._form;
     }
 
-    [setForm](form: Form): void {
-        this._form = form;
+    [setForm]<T>(form: Form<T>): void {
+        this._form = form as any;
         _.forEach(this.subFields, (subField) => {
             subField[setForm](form);
         });

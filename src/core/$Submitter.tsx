@@ -5,31 +5,32 @@ import { ButtonProps } from '../utils/htmlProps';
 import { Submitter } from './Submitter';
 import { Form } from './Form';
 
-export interface SubmitConfig {
+export interface SubmitConfig<T> {
     readonly label?: string | ReactElement;
-    readonly onValid: OnValid;
-    readonly onInvalid?: OnInvalid | 'disable';
-    readonly onError?: OnError;
+    readonly onValid: OnValid<T>;
+    readonly onInvalid?: OnInvalid<T> | 'disable';
+    readonly onError?: OnError<T>;
     readonly buttonProps?: ButtonProps;
 }
 
-export type OnValid = (values: any) => Promise<void>;
-export type OnInvalid = (form: Form) => void;
-export type OnError = (err: Error, form: Form) => void;
+export type OnValid<T> = (values: T) => Promise<void>;
+export type OnInvalid<T> = (form: Form<T>) => void;
+export type OnError<T> = (err: Error, form: Form<T>) => void;
 
-interface I$Submitter {
-    readonly config: SubmitConfig;
-    with(config: Partial<SubmitConfig>): ButtonSpec;
+interface I$Submitter<T> {
+    readonly config: SubmitConfig<T>;
+
+    with(config: Partial<SubmitConfig<T>>): ButtonSpec<T>;
 }
 
-export class $Submitter implements I$Submitter {
-    constructor(readonly config: SubmitConfig) {}
+export class $Submitter<T> implements I$Submitter<T> {
+    constructor(readonly config: SubmitConfig<T>) {}
 
-    with(config: Partial<SubmitConfig>): $Submitter {
+    with(config: Partial<SubmitConfig<T>>): $Submitter<T> {
         return new $Submitter(_.merge({}, this.config, config));
     }
 }
 
-export function useSubmitter(submitter: $Submitter): Submitter {
+export function useSubmitter<T>(submitter: $Submitter<T>): Submitter<T> {
     return new Submitter(submitter.config);
 }

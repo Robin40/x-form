@@ -1,19 +1,33 @@
 import { ReactElement } from 'react';
 import { $Submitter, OnValid, SubmitConfig } from '../core/$Submitter';
 
-export interface ButtonSpec {
-    readonly config: SubmitConfig;
+export interface ButtonSpec<T> {
+    readonly config: SubmitConfig<T>;
 }
 
-export function button(config: SubmitConfig): $Submitter;
-export function button(label: string, config: SubmitConfig): $Submitter;
-export function button(label: string, onValid: OnValid): $Submitter;
-export function button(label: ReactElement, config: SubmitConfig): $Submitter;
-export function button(label: ReactElement, onValid: OnValid): $Submitter;
+export function button<T = any>(config: SubmitConfig<T>): $Submitter<T>;
+export function button<T = any>(
+    label: string,
+    config: SubmitConfig<T>
+): $Submitter<T>;
+export function button<T = any>(
+    label: string,
+    onValid: OnValid<T>
+): $Submitter<T>;
+export function button<T = any>(
+    label: ReactElement,
+    config: SubmitConfig<T>
+): $Submitter<T>;
+export function button<T = any>(
+    label: ReactElement,
+    onValid: OnValid<T>
+): $Submitter<T>;
 
-export function button(
-    ...args: [SubmitConfig] | [string | ReactElement, SubmitConfig | OnValid]
-): $Submitter {
+export function button<T = any>(
+    ...args:
+        | [SubmitConfig<T>]
+        | [string | ReactElement, SubmitConfig<T> | OnValid<T>]
+): $Submitter<T> {
     // $Button(label, onValid)
     if (typeof args[1] === 'function') {
         return button(args[0] as any, { onValid: args[1] });

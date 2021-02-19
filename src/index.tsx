@@ -33,6 +33,7 @@ import { english, spanish } from './core/XFormLocale';
 import { button, ButtonSpec } from './builtin/button';
 import { Form } from './core/Form';
 import Debug from './utils/Debug';
+import { Fields, FieldSpecs } from './utils/types';
 
 export {
     button,
@@ -88,6 +89,8 @@ export type {
     EnumOption,
     FieldConfig,
     FieldDefaults,
+    Fields,
+    FieldSpecs,
     FormConfig,
     FormProps,
     FormState,

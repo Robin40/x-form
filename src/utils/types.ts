@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { FieldSpec } from '../core/FieldSpec';
+import { Field } from '../core/Field';
 
 export type PartialDeep<T> = T extends Function
     ? T
@@ -18,3 +19,11 @@ export type InferT<F> = F extends FieldSpec<any, infer T>
     : {
           [P in keyof F]: InferT<F[P]>;
       };
+
+export type Fields<T> = {
+    [P in keyof T]-?: Field<any, T[P]>;
+};
+
+export type FieldSpecs<T> = {
+    [P in keyof T]-?: FieldSpec<any, T[P]>;
+};

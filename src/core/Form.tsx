@@ -6,18 +6,19 @@ import _ from 'lodash';
 import { FormProps } from '../utils/htmlProps';
 import { FormState, setHasBeenSubmitted, setSubmitError } from './useFormState';
 import autoBind from 'auto-bind';
+import { Fields } from '../utils/types';
 
-interface IForm {
-    readonly config: FormConfig;
-    readonly fields: FormFields;
-    readonly submitter: Submitter;
+interface IForm<T> {
+    readonly config: FormConfig<T>;
+    readonly fields: Fields<T>;
+    readonly submitter: Submitter<T>;
     readonly state: FormState;
     readonly hasBeenSubmitted: boolean;
     readonly props: FormProps;
-    readonly shownFields: FormFields;
+    readonly shownFields: Partial<Fields<T>>;
     readonly isValid: boolean;
 
-    fillWith(data: object): void;
+    fillWith(data: Record<string, unknown>): void;
 
     render(): ReactElement;
 
@@ -27,22 +28,23 @@ interface IForm {
 
     submit(): Promise<void>;
 
-    getValuesAssumingTheyAreValid(): FormValues;
+    getValuesAssumingTheyAreValid(): T;
 
     reset(): void;
 }
 
 export type FormFields = Record<string, Field<any, any>>;
 
+// noinspection JSUnusedGlobalSymbols
 export type FormValues = {
     [p: string]: any;
 };
 
-export class Form implements IForm {
+export class Form<T> implements IForm<T> {
     constructor(
-        readonly config: FormConfig,
-        readonly fields: FormFields,
-        readonly submitter: Submitter,
+        readonly config: FormConfig<T>,
+        readonly fields: Fields<T>,
+        readonly submitter: Submitter<T>,
         readonly state: FormState
     ) {
         _.forEach(fields, (field) => field[setForm](this));
@@ -55,7 +57,7 @@ export class Form implements IForm {
 
     readonly props = Form.propsFor(this);
 
-    private static propsFor(form: Form): FormProps {
+    private static propsFor<T>(form: Form<T>): FormProps {
         return {
             onSubmit(event) {
                 event.preventDefault();
@@ -66,11 +68,11 @@ export class Form implements IForm {
         };
     }
 
-    get shownFields(): FormFields {
+    get shownFields(): Partial<Fields<T>> {
         return this.lazyShownFields();
     }
 
-    private lazyShownFields = lazy<FormFields>(() => {
+    private lazyShownFields = lazy<Partial<Fields<T>>>(() => {
         return _.pickBy(this.fields, 'shouldBeShown');
     });
 
@@ -82,7 +84,7 @@ export class Form implements IForm {
         return _.every(this.shownFields, 'isValid');
     });
 
-    fillWith(data: object): void {
+    fillWith(data: Record<string, unknown>): void {
         _.forEach(data, (value, key) => {
             this.fields[key]?.fillWith(value);
         });
@@ -117,8 +119,11 @@ export class Form implements IForm {
         return this.submitter.submit(this);
     }
 
-    getValuesAssumingTheyAreValid(): FormValues {
-        return _.mapValues(this.shownFields, Field.getValueAssumingItIsValid);
+    getValuesAssumingTheyAreValid(): T {
+        return _.mapValues(
+            this.shownFields,
+            Field.getValueAssumingItIsValid
+        ) as any;
     }
 
     reset(): void {

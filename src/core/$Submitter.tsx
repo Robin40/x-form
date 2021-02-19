@@ -5,7 +5,7 @@ import { ButtonProps } from '../utils/htmlProps';
 import { Submitter } from './Submitter';
 import { Form } from './Form';
 
-export interface SubmitConfig<T> {
+export interface SubmitConfig<T = any> {
     readonly label?: string | ReactElement;
     readonly onValid: OnValid<T>;
     readonly onInvalid?: OnInvalid<T> | 'disable';
@@ -23,7 +23,7 @@ interface I$Submitter<T> {
     with(config: Partial<SubmitConfig<T>>): ButtonSpec<T>;
 }
 
-export class $Submitter<T> implements I$Submitter<T> {
+export class $Submitter<T = any> implements I$Submitter<T> {
     constructor(readonly config: SubmitConfig<T>) {}
 
     with(config: Partial<SubmitConfig<T>>): $Submitter<T> {

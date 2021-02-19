@@ -6,7 +6,7 @@ import { FormProps } from '../utils/htmlProps';
 import { useFormState } from './useFormState';
 import { FieldSpecs } from '../utils/types';
 
-export interface FormConfig<T> {
+export interface FormConfig<T = any> {
     readonly fields: FieldSpecs<T>;
     readonly submit: $Submitter<T>;
     readonly props?: FormProps;
@@ -46,7 +46,7 @@ class _$Form<T> {
     }
 }
 
-export type $Form<T> = _$Form<T>;
+export type $Form<T = any> = _$Form<T>;
 
 // // eslint-disable-next-line @typescript-eslint/no-redeclare
 export function $Form<T>(config: FormConfig<T>): $Form<T> {

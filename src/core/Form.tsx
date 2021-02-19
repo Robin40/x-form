@@ -40,7 +40,7 @@ export type FormValues = {
     [p: string]: any;
 };
 
-export class Form<T> implements IForm<T> {
+export class Form<T = any> implements IForm<T> {
     constructor(
         readonly config: FormConfig<T>,
         readonly fields: Fields<T>,

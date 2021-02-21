@@ -4,7 +4,7 @@ import { InputProps } from '../utils/htmlProps';
 import { Field } from './Field';
 import { useInputState } from './useInputState';
 import { Result } from './Result';
-import { defaultTheme, Theme } from './Theme';
+import { defaultTheme, injectClassNames, Theme } from './Theme';
 import { EnumOption } from './EnumOption';
 import { XFormContext } from './XFormContext';
 import { FormFields } from './Form';
@@ -35,6 +35,8 @@ export interface FieldConfig<S, T> {
     readonly blankResult?: Result<T>;
 
     readonly render?: Partial<Theme>;
+
+    readonly classNames?: Partial<Record<keyof Theme, string>>;
 
     readonly initialInput?: S;
 
@@ -154,16 +156,20 @@ export function useField<S, T>(
 
     /* Memoize any inline components defined by the user to avoid bugs where the
      * input loses focus due to React rendering a different component each time. */
-    const theme = useMemo(
-        () =>
-            _.merge(
-                {},
-                defaultTheme,
-                field.defaults.render,
-                field.config.render
-            ),
-        []
-    );
+    const theme = useMemo(() => {
+        const theme = _.merge(
+            {},
+            defaultTheme,
+            field.defaults.render,
+            field.config.render
+        );
+        const injectedClassNames = _.merge(
+            {},
+            field.defaults.classNames,
+            field.config.classNames
+        );
+        return injectClassNames(theme, injectedClassNames);
+    }, []);
 
     const subFields = _.mapValues(field.defaults.subFields ?? {}, useField);
 

@@ -106,6 +106,10 @@ function App() {
                 pass: $Password(),
                 repeatPass: $RepeatPassword(),
                 age: optional($Number('Age')).with({
+                    // inputProps: {
+                    //     placeholder: '40',
+                    // },
+                    placeholder: '42',
                     nonZero: true,
                     // allowNegative: true,
                 }),

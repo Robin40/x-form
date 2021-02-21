@@ -230,8 +230,12 @@ export class Field<S, T> implements IField<S, T> {
 
         return deepExtend(
             defaultInputProps,
-            defaults.inputProps,
-            config.inputProps,
+            _.merge({}, defaults.inputProps, {
+                placeholder: defaults.placeholder,
+            }),
+            _.merge({}, config.inputProps, {
+                placeholder: config.placeholder,
+            }),
             eventHandlers
         );
     }

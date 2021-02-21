@@ -34,6 +34,8 @@ export interface FieldConfig<S, T> {
 
     readonly blankResult?: Result<T>;
 
+    readonly placeholder?: string;
+
     readonly render?: Partial<Theme>;
 
     readonly classNames?: Partial<Record<keyof Theme, string>>;

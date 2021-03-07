@@ -28,7 +28,7 @@ interface IForm<T> {
 
     submit(): Promise<void>;
 
-    getValuesAssumingTheyAreValid(): T;
+    values: Partial<T>;
 
     reset(): void;
 }
@@ -86,7 +86,7 @@ export class Form<T = any> implements IForm<T> {
 
     fillWith(data: Record<string, unknown>): void {
         _.forEach(data, (value, key) => {
-            this.fields[key]?.fillWith(value);
+            this.fields[key]?.fillWith?.(value);
         });
     }
 
@@ -119,11 +119,8 @@ export class Form<T = any> implements IForm<T> {
         return this.submitter.submit(this);
     }
 
-    getValuesAssumingTheyAreValid(): T {
-        return _.mapValues(
-            this.shownFields,
-            Field.getValueAssumingItIsValid
-        ) as any;
+    get values(): Partial<T> {
+        return _.mapValues(this.fields, 'value') as Partial<T>;
     }
 
     reset(): void {

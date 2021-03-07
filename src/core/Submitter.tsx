@@ -68,12 +68,10 @@ export class Submitter<T> implements ISubmitter<T> {
             return this.onInvalid(form);
         }
 
-        const values = form.getValuesAssumingTheyAreValid();
-
         form.state[setSubmitError](null);
         form.state[setIsSubmitting](true);
         try {
-            await this.onValid(values);
+            await this.onValid(form.values as T);
         } catch (err) {
             form.state[setSubmitError](err);
             this.onError(err, form);

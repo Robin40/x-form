@@ -59,6 +59,12 @@ interface IField<S, T> {
      * validations. */
     readonly isValid: boolean;
 
+    /** The value that will be submitted for this field if the field is valid,
+     * or undefined if the field is invalid. If the field is not being shown
+     * (i.e. showIf(false)) the value will be undefined even if the field is
+     * valid. */
+    readonly value: T | undefined;
+
     is(value: T): boolean;
 
     is(predicate: Predicate<T>): boolean;
@@ -291,6 +297,14 @@ export class Field<S, T> implements IField<S, T> {
 
     get isValid(): boolean {
         return this.is(Valid);
+    }
+
+    get value(): T | undefined {
+        if (this.shouldBeShown && this.result instanceof Valid) {
+            return this.result.value;
+        } else {
+            return undefined;
+        }
     }
 
     /** Checks whether this field is a valid field with the given value,

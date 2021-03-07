@@ -176,15 +176,7 @@ function App() {
                     <button onClick={autoFill}>Autofill</button>
                     <button onClick={form.reset}>Reset</button>
 
-                    <Debug value={form.fields.realEstateValue.input} />
-                    <Debug value={form.fields.realEstateValue.result} />
-                    <Debug value={form.fields.realEstateValue.isFocused} />
-                    <Debug
-                        value={_.mapValues(
-                            form.fields.realEstateValue.subFields,
-                            'isFocused'
-                        )}
-                    />
+                    <Debug value={form.values} />
                 </div>
                 {/*<InfoProyecto />*/}
             </div>

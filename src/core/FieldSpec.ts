@@ -80,7 +80,7 @@ interface IFieldSpec<S, T> {
      * @see IFieldSpec.readOnly */
     readOnlyIf(condition: boolean): FieldSpec<S, T>;
 
-    showIf(rule: (fields: FormFields) => boolean): FieldSpec<S, T>;
+    showIf(rule: (fields: FormFields) => boolean): FieldSpec<S, T | undefined>;
 }
 
 export type FieldCategory = 'textual' | 'numeric' | 'enum' | 'binary';
@@ -133,7 +133,7 @@ export class FieldSpec<S, T> implements IFieldSpec<S, T> {
         });
     }
 
-    showIf(rule: (fields: FormFields) => boolean): FieldSpec<S, T> {
+    showIf(rule: (fields: FormFields) => boolean): FieldSpec<S, T | undefined> {
         return this.with({
             showRule: rule,
         });

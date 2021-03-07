@@ -6,19 +6,18 @@
 
 Created at [The Dog Company](https://thedogcompany.cl/)
 
-### <img src="https://images.emojiterra.com/google/android-oreo/512px/1f389.png" width="16"/> Good news!
-> You can already use the new nomenclature for fields, e.g. `text` instead of `$Text`, for versions `>= 3.2.0`.
-
 ## Installation
 
 - Install x-form and its peer dependencies, using your package manager of choice
 
 ### Option 1: `npm`
+
 ```bash
 npm install --save @tdc-cl/x-form immutable js-joda decimal.js
 ```
 
 ### Option 2: `yarn`
+
 ```bash
 yarn add @tdc-cl/x-form immutable js-joda decimal.js
 ```
@@ -28,18 +27,20 @@ yarn add @tdc-cl/x-form immutable js-joda decimal.js
 > For TypeScript users, type definitions are already included, so you don't need to install a `@types/...` package.
 
 ## Basic usage
+
 Let's create a login form
+
 ```typescript jsx
-import { useForm, $Form, $Text, $Password, $Checkbox, $Button } from '@tdc-cl/x-form';
+import { useForm, $Form, text, password, checkbox, button } from '@tdc-cl/x-form';
 
 function MyLoginFormComponent() {
     const form = useForm($Form({
         fields: {
-            user: $Text('Username'),
-            pass: $Password(),
-            remember: $Checkbox('Remember me'),
+            user: text('Username'),
+            pass: password(),
+            remember: checkbox('Remember me'),
         },
-        submit: $Button('Log in', {
+        submit: button('Log in', {
             async onValid(values) {
                 // make a request to your endpoint here
             },

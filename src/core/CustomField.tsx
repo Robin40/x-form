@@ -75,9 +75,9 @@ function makeCustomField(): ICustomField {
 
     /** Lets you define a custom field based on an existing field.
      *
-     * For example, an $Email field can be defined as follows:
+     * For example, an email field can be defined as follows:
      * ```
-     * export const $Email = CustomField.extends($Text).with({
+     * export const email = CustomField.extends(text).with({
      *     validate(value) {
      *         if (!value.includes('@')) {
      *             return Invalid('Invalid email');

@@ -1,5 +1,5 @@
 import {
-    $Text,
+    text,
     CustomField,
     Invalid,
     removeExcessWhitespace,
@@ -7,7 +7,7 @@ import {
     Valid,
 } from '@tdc-cl/x-form';
 
-export const $Rut = CustomField.extends($Text).with({
+export const rut = CustomField.extends(text).with({
     label: 'RUT',
 
     preprocess(input) {

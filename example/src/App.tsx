@@ -2,16 +2,15 @@ import React from 'react';
 import { Set } from 'immutable';
 
 import {
-    $Checkbox,
-    $Checklist,
-    $Date,
-    $Decimal,
+    checkbox,
+    checklist,
+    date,
     $Form,
-    $Number,
-    $Password,
-    $Radio,
-    $TextArea,
-    $Time,
+    number,
+    password,
+    radio,
+    textarea,
+    time,
     button,
     CustomField,
     Debug,
@@ -29,10 +28,9 @@ import {
 import '@tdc-cl/x-form/dist/index.css';
 import { LocalDate, LocalTime } from 'js-joda';
 import { Decimal } from 'decimal.js';
-import { $Rut } from './$Rut';
-import _ from 'lodash';
+import { rut } from './rut';
 
-const $Gender = CustomField.extends($Radio).with({
+const gender = CustomField.extends(radio).with({
     label: 'Gender',
     async options() {
         await new Promise((r) => setTimeout(r, 3000));
@@ -70,7 +68,7 @@ interface Account {
 }
 
 function App() {
-    const $RepeatPassword = CustomField.extends($Password).with({
+    const repeatPassword = CustomField.extends(password).with({
         label: 'Repeat password',
 
         validate(value) {
@@ -103,9 +101,9 @@ function App() {
                         },
                     },
                 }),
-                pass: $Password(),
-                repeatPass: $RepeatPassword(),
-                age: optional($Number('Age')).with({
+                pass: password(),
+                repeatPass: repeatPassword(),
+                age: optional(number('Age')).with({
                     // inputProps: {
                     //     placeholder: '40',
                     // },
@@ -113,9 +111,9 @@ function App() {
                     nonZero: true,
                     // allowNegative: true,
                 }),
-                dob: $Date('Date of birth'),
-                tob: $Time('Time of birth'),
-                gender: $Gender().editable(),
+                dob: date('Date of birth'),
+                tob: time('Time of birth'),
+                gender: gender().editable(),
                 pet: select('Favorite pet').with({
                     options: ['Cat', 'Dog', 'Other'],
                     initialInput: 'Cat',
@@ -123,13 +121,13 @@ function App() {
                 // prettier-ignore
                 specifyPet: text('Specify favorite pet')
                     .showIf(_ => _.pet.is('Other')),
-                bio: optional($TextArea('Bio')),
-                rut: optional($Rut()),
-                income: $Decimal('Income').with({
+                bio: optional(textarea('Bio')),
+                rut: optional(rut()),
+                income: decimal('Income').with({
                     inputProps: { min: 2, max: 4 },
                 }),
                 realEstateValue: money('Real estate value'),
-                checklist: $Checklist({
+                checklist: checklist({
                     options: [
                         { value: 'ToS', label: 'Agree with terms of service' },
                         {
@@ -142,7 +140,7 @@ function App() {
                         },
                     ],
                 }),
-                autoRenew: $Checkbox('Automatically renew my subscription'),
+                autoRenew: checkbox('Automatically renew my subscription'),
             },
             submit: button('Create account', {
                 async onValid(values) {

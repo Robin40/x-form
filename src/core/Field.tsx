@@ -314,7 +314,7 @@ export class Field<S, T> implements IField<S, T> {
      * ```
      * const form = useForm($Form({
      *     builtin: {
-     *         maritalStatus: $Select('Marital status').with({
+     *         maritalStatus: select('Marital status').with({
      *             options: ['Single', 'Married', ...]
      *         }),
      *         ...

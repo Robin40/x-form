@@ -28,16 +28,16 @@ export function button<T = any>(
         | [SubmitConfig<T>]
         | [string | ReactElement, SubmitConfig<T> | OnValid<T>]
 ): $Submitter<T> {
-    // $Button(label, onValid)
+    // button(label, onValid)
     if (typeof args[1] === 'function') {
         return button(args[0] as any, { onValid: args[1] });
     }
 
-    // $Button(label, config)
+    // button(label, config)
     if (args.length === 2) {
         return button({ label: args[0], ...args[1] });
     }
 
-    // $Button(config)
+    // button(config)
     return new $Submitter(args[0]);
 }

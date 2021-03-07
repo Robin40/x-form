@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { FormConfig } from './$Form';
+import { FormConfig } from './FormSpec';
 import { Field, setForm } from './Field';
 import { Submitter } from './Submitter';
 import _ from 'lodash';

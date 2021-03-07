@@ -2,10 +2,10 @@ import React from 'react';
 import { Set } from 'immutable';
 
 import {
+    FormSpec,
     checkbox,
     checklist,
     date,
-    $Form,
     number,
     password,
     radio,
@@ -83,7 +83,7 @@ function App() {
     });
 
     const form = useForm<Account>(
-        $Form({
+        new FormSpec({
             fields: {
                 user: text('Username').with({
                     initialInput: 'Joe',

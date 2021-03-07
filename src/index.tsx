@@ -1,4 +1,4 @@
-import { $Form, FormConfig, useForm } from './core/$Form';
+import { FormSpec, FormConfig, useForm } from './core/FormSpec';
 import { checkbox, acceptBoolean } from './builtin/checkbox';
 import { checklist } from './builtin/checklist';
 import { date } from './builtin/date';
@@ -48,7 +48,7 @@ export {
     text,
     textarea,
     time,
-    $Form,
+    FormSpec,
     $Submitter,
     acceptBoolean,
     english,

@@ -119,5 +119,5 @@ export class Submitter<T> implements ISubmitter<T> {
 }
 
 function render<T>({ config, buttonProps }: Submitter<T>): ReactElement {
-    return <button {...buttonProps}>{config.label}</button>;
+    return <button {...buttonProps}>{config.submitButtonLabel}</button>;
 }

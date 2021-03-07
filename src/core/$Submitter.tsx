@@ -6,7 +6,7 @@ import { Submitter } from './Submitter';
 import { Form } from './Form';
 
 export interface SubmitConfig<T = any> {
-    readonly label?: string | ReactElement;
+    readonly submitButtonLabel?: string | ReactElement;
     readonly onValid: OnValid<T>;
     readonly onInvalid?: OnInvalid<T> | 'disable';
     readonly onError?: OnError<T>;

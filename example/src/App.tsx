@@ -136,7 +136,8 @@ const myForm = new FormSpec<Account>({
         }),
         autoRenew: checkbox('Automatically renew my subscription'),
     },
-    submit: button('Create account', {
+    submit: button({
+        submitButtonLabel: 'Create account',
         async onValid(values) {
             await new Promise((r) => setTimeout(r, 2000));
             alert(JSON.stringify(values, null, '  '));

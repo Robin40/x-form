@@ -35,7 +35,7 @@ export function button<T = any>(
 
     // button(label, config)
     if (args.length === 2) {
-        return button({ label: args[0], ...args[1] });
+        return button({ submitButtonLabel: args[0], ...args[1] });
     }
 
     // button(config)

@@ -9,7 +9,7 @@ import { Submitter } from './Submitter';
 
 export interface FormConfig<T = any> {
     readonly fields: FieldSpecs<T>;
-    readonly submit: SubmitConfig<T>;
+    readonly submit?: SubmitConfig<T>;
     readonly props?: FormProps;
 }
 
@@ -46,7 +46,10 @@ export class FormSpec<T> {
     }
 }
 
-export function useForm<T = any>(spec: FormSpec<T>): Form<T> {
+export function useForm<T = any>(
+    spec: FormSpec<T>,
+    submit: SubmitConfig<T>
+): Form<T> {
     const state = useFormState();
 
     /* Prevent the user from changing form data while submitting */
@@ -54,9 +57,9 @@ export function useForm<T = any>(spec: FormSpec<T>): Form<T> {
         spec = spec.readOnly();
     }
 
-    const { config } = spec;
+    const { config } = spec.with({ submit });
     const fields = _.mapValues(config.fields, useField) as any;
-    const submitter = new Submitter(config.submit);
+    const submitter = new Submitter(config.submit ?? {});
 
     return new Form<T>(config, fields, submitter, state);
 }

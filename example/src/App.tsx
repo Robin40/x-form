@@ -3,6 +3,7 @@ import { Set } from 'immutable';
 
 import {
     FormSpec,
+    Field,
     checkbox,
     checklist,
     date,
@@ -67,89 +68,84 @@ interface Account {
     autoRenew: boolean;
 }
 
-function App() {
-    const repeatPassword = CustomField.extends(password).with({
-        label: 'Repeat password',
+const repeatPassword = CustomField.extends(password).with({
+    label: 'Repeat password',
 
-        validate(value) {
-            const { pass } = form.fields;
+    validate(this: Field<string, string>, value) {
+        const { pass } = this.form.fields;
 
-            if (!pass.is(value)) {
-                return Invalid('Passwords do not match');
-            }
+        if (!pass.is(value)) {
+            return Invalid('Passwords do not match');
+        }
 
-            return Valid(value);
-        },
-    });
+        return Valid(value);
+    },
+});
 
-    const form = useForm<Account>(
-        new FormSpec({
-            fields: {
-                user: text('Username').with({
-                    initialInput: 'Joe',
-                    render: {
-                        Input({ field }) {
-                            return (
-                                <input
-                                    {...field.inputProps}
-                                    ref={field.inputRef}
-                                />
-                            );
-                        },
-                        Error({ children }) {
-                            return <pre>{children}</pre>;
-                        },
-                    },
-                }),
-                pass: password(),
-                repeatPass: repeatPassword(),
-                age: optional(number('Age')).with({
-                    // inputProps: {
-                    //     placeholder: '40',
-                    // },
-                    placeholder: '42',
-                    nonZero: true,
-                    // allowNegative: true,
-                }),
-                dob: date('Date of birth'),
-                tob: time('Time of birth'),
-                gender: gender().editable(),
-                pet: select('Favorite pet').with({
-                    options: ['Cat', 'Dog', 'Other'],
-                    initialInput: 'Cat',
-                }),
-                // prettier-ignore
-                specifyPet: text('Specify favorite pet')
-                    .showIf(_ => _.pet.is('Other')),
-                bio: optional(textarea('Bio')),
-                rut: optional(rut()),
-                income: decimal('Income').with({
-                    inputProps: { min: 2, max: 4 },
-                }),
-                realEstateValue: money('Real estate value'),
-                checklist: checklist({
-                    options: [
-                        { value: 'ToS', label: 'Agree with terms of service' },
-                        {
-                            value: 'Privacy',
-                            label: 'Agree with privacy policy',
-                        },
-                        {
-                            value: 'Spam',
-                            label: 'Subscribe to email spam notifications',
-                        },
-                    ],
-                }),
-                autoRenew: checkbox('Automatically renew my subscription'),
-            },
-            submit: button('Create account', {
-                async onValid(values) {
-                    await new Promise((r) => setTimeout(r, 2000));
-                    alert(JSON.stringify(values, null, '  '));
+const myForm = new FormSpec<Account>({
+    fields: {
+        user: text('Username').with({
+            initialInput: 'Joe',
+            render: {
+                Input({ field }) {
+                    return <input {...field.inputProps} ref={field.inputRef} />;
                 },
-            }),
-        }) /*.readOnly()*/
-    );
+                Error({ children }) {
+                    return <pre>{children}</pre>;
+                },
+            },
+        }),
+        pass: password(),
+        repeatPass: repeatPassword(),
+        age: optional(number('Age')).with({
+            // inputProps: {
+            //     placeholder: '40',
+            // },
+            placeholder: '42',
+            nonZero: true,
+            // allowNegative: true,
+        }),
+        dob: date('Date of birth'),
+        tob: time('Time of birth'),
+        gender: gender().editable(),
+        pet: select('Favorite pet').with({
+            options: ['Cat', 'Dog', 'Other'],
+            initialInput: 'Cat',
+        }),
+        // prettier-ignore
+        specifyPet: text('Specify favorite pet')
+            .showIf(_ => _.pet.is('Other')),
+        bio: optional(textarea('Bio')),
+        rut: optional(rut()),
+        income: decimal('Income').with({
+            inputProps: { min: 2, max: 4 },
+        }),
+        realEstateValue: money('Real estate value'),
+        checklist: checklist({
+            options: [
+                { value: 'ToS', label: 'Agree with terms of service' },
+                {
+                    value: 'Privacy',
+                    label: 'Agree with privacy policy',
+                },
+                {
+                    value: 'Spam',
+                    label: 'Subscribe to email spam notifications',
+                },
+            ],
+        }),
+        autoRenew: checkbox('Automatically renew my subscription'),
+    },
+    submit: button('Create account', {
+        async onValid(values) {
+            await new Promise((r) => setTimeout(r, 2000));
+            alert(JSON.stringify(values, null, '  '));
+        },
+    }),
+});
+
+function App() {
+    const form = useForm(myForm);
 
     function autoFill() {
         form.fillWith({

@@ -2,14 +2,9 @@ import { ButtonProps } from '../utils/htmlProps';
 import React, { ReactElement } from 'react';
 import { SubmitConfig } from './SubmitConfig';
 import { Form } from './Form';
-import {
-    setHasBeenSubmitted,
-    setIsSubmitting,
-    setSubmitError,
-} from './useFormState';
 import { scrollToTop } from '../utils/utils';
 import _ from 'lodash';
-import { scrollToField, setForm } from './Field';
+import { scrollToField } from './Field';
 
 interface ISubmitter<T> {
     readonly config: SubmitConfig<T>;
@@ -35,7 +30,8 @@ export class Submitter<T> implements ISubmitter<T> {
         return this._form;
     }
 
-    [setForm](form: Form<T>): void {
+    /** @internal */
+    setForm(form: Form<T>): void {
         this._form = form;
     }
 
@@ -62,21 +58,21 @@ export class Submitter<T> implements ISubmitter<T> {
     }
 
     async submit(form: Form<T>): Promise<void> {
-        form.state[setHasBeenSubmitted](true);
+        form.state.setHasBeenSubmitted(true);
 
         if (!form.isValid) {
             return this.onInvalid(form);
         }
 
-        form.state[setSubmitError](null);
-        form.state[setIsSubmitting](true);
+        form.state.setSubmitError(null);
+        form.state.setIsSubmitting(true);
         try {
             await this.onValid?.(form.values as T);
         } catch (err) {
-            form.state[setSubmitError](err);
+            form.state.setSubmitError(err);
             this.onError(err, form);
         } finally {
-            form.state[setIsSubmitting](false);
+            form.state.setIsSubmitting(false);
         }
     }
 

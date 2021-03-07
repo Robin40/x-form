@@ -18,9 +18,6 @@ import { Form, FormFields } from './Form';
 import _ from 'lodash';
 import { XFormLocale } from './XFormLocale';
 
-export const setForm = Symbol('setForm');
-export const describe = Symbol('describe');
-
 interface IField<S, T> {
     readonly locale: XFormLocale;
     readonly defaults: FieldDefaults<S, T>;
@@ -35,7 +32,7 @@ interface IField<S, T> {
     readonly form: Form<any>;
 
     /** @internal */
-    [setForm]<T>(form: Form<T>): void;
+    setForm<T>(form: Form<T>): void;
 
     readonly nonZero: boolean;
     readonly allowNegative: boolean;
@@ -70,7 +67,7 @@ interface IField<S, T> {
     readonly textAreaProps: TextAreaProps;
     readonly options: OptionWithProps[];
 
-    [describe](): string;
+    describe(): string;
 
     preprocess(input: S): S;
 
@@ -125,10 +122,11 @@ export class Field<S, T> implements IField<S, T> {
         return this._form;
     }
 
-    [setForm]<T>(form: Form<T>): void {
+    /** @internal */
+    setForm<T>(form: Form<T>): void {
         this._form = form as any;
         _.forEach(this.subFields, (subField) => {
-            subField[setForm](form);
+            subField.setForm(form);
         });
     }
 
@@ -346,13 +344,11 @@ export class Field<S, T> implements IField<S, T> {
 
     static getValueAssumingItIsValid<T>(field: Field<any, T>): T {
         return field.result.unwrap(
-            `Couldn't get the value of the ${field[
-                describe
-            ]()} because it's invalid`
+            `Couldn't get the value of the ${field.describe()} because it's invalid`
         );
     }
 
-    [describe](): string {
+    describe(): string {
         const { label, name } = this;
         const tilde = '`';
 
@@ -412,9 +408,7 @@ export class Field<S, T> implements IField<S, T> {
 
         if (element == null) {
             console.error(
-                `I tried to focus the ${this[
-                    describe
-                ]()} but it doesn't have an inputRef or textAreaRef`
+                `I tried to focus the ${this.describe()} but it doesn't have an inputRef or textAreaRef`
             );
             return;
         }
@@ -467,7 +461,7 @@ export function scrollToField<S, T>(field: Field<S, T>): boolean {
     if (field.containerRef.current == null) {
         scrollToTop();
         console.error(
-            `I tried to scroll to the ${field[describe]()}, ` +
+            `I tried to scroll to the ${field.describe()}, ` +
                 `but it doesn't have a containerRef to scroll to`
         );
         return false;

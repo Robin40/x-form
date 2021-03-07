@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react';
 import { FormConfig } from './FormSpec';
-import { Field, setForm } from './Field';
+import { Field } from './Field';
 import { Submitter } from './Submitter';
 import _ from 'lodash';
 import { FormProps } from '../utils/htmlProps';
-import { FormState, setHasBeenSubmitted, setSubmitError } from './useFormState';
+import { FormState } from './useFormState';
 import autoBind from 'auto-bind';
 import { Fields } from '../utils/types';
 
@@ -47,8 +47,8 @@ export class Form<T = any> implements IForm<T> {
         readonly submitter: Submitter<T>,
         readonly state: FormState
     ) {
-        _.forEach(fields, (field) => field[setForm](this));
-        submitter[setForm](this);
+        _.forEach(fields, (field) => field.setForm(this));
+        submitter.setForm(this);
 
         autoBind(this);
     }
@@ -125,8 +125,8 @@ export class Form<T = any> implements IForm<T> {
 
     reset(): void {
         _.forEach(this.fields, (field) => field.reset());
-        this.state[setHasBeenSubmitted](false);
-        this.state[setSubmitError](null);
+        this.state.setHasBeenSubmitted(false);
+        this.state.setSubmitError(null);
     }
 }
 

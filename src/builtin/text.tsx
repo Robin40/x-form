@@ -4,8 +4,6 @@ import { Valid } from '../core/Result';
 import { Field } from '../core/Field';
 
 export const text = CustomField<string, string>({
-    category: 'textual',
-
     preprocess(this: Field<string, string>, input: string): string {
         // Don't remove whitespace from passwords
         const type =

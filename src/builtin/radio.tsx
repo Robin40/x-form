@@ -5,7 +5,6 @@ import { Option } from '../core/EnumOption';
 import { select, acceptOption } from './select';
 
 export const radio = CustomField<string, Option>({
-    category: 'enum',
     blankInput: '',
     parse: select.defaults.parse,
     validate: Valid,

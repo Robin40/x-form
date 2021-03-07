@@ -83,11 +83,7 @@ interface IFieldSpec<S, T> {
     showIf(rule: (fields: FormFields) => boolean): FieldSpec<S, T | undefined>;
 }
 
-export type FieldCategory = 'textual' | 'numeric' | 'enum' | 'binary';
-
 export interface FieldDefaults<S, T> extends FieldConfig<S, T> {
-    category?: FieldCategory;
-
     blankInput: S;
 
     isBlank?(input: S): boolean;

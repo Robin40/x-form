@@ -1,6 +1,6 @@
 import { ButtonProps } from '../utils/htmlProps';
 import React, { ReactElement } from 'react';
-import { SubmitConfig } from './$Submitter';
+import { SubmitConfig } from './SubmitConfig';
 import { Form } from './Form';
 import {
     setHasBeenSubmitted,
@@ -71,7 +71,7 @@ export class Submitter<T> implements ISubmitter<T> {
         form.state[setSubmitError](null);
         form.state[setIsSubmitting](true);
         try {
-            await this.onValid(form.values as T);
+            await this.onValid?.(form.values as T);
         } catch (err) {
             form.state[setSubmitError](err);
             this.onError(err, form);

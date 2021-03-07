@@ -12,7 +12,6 @@ import {
     radio,
     textarea,
     time,
-    button,
     CustomField,
     Debug,
     decimal,
@@ -136,13 +135,13 @@ const myForm = new FormSpec<Account>({
         }),
         autoRenew: checkbox('Automatically renew my subscription'),
     },
-    submit: button({
+    submit: {
         submitButtonLabel: 'Create account',
         async onValid(values) {
             await new Promise((r) => setTimeout(r, 2000));
             alert(JSON.stringify(values, null, '  '));
         },
-    }),
+    },
 });
 
 function App() {

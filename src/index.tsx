@@ -17,7 +17,7 @@ import { Field, scrollToField } from './core/Field';
 import { optional } from './core/optional';
 import { Theme } from './core/Theme';
 import { Invalid, Result, Valid } from './core/Result';
-import { $Submitter, SubmitConfig } from './core/$Submitter';
+import { SubmitConfig } from './core/SubmitConfig';
 import { FormState } from './core/useFormState';
 import {
     ButtonProps,
@@ -30,13 +30,11 @@ import { InputState } from './core/useInputState';
 import { removeExcessWhitespace } from './utils/utils';
 import { XFormContext } from './core/XFormContext';
 import { english, spanish } from './core/XFormLocale';
-import { button, ButtonSpec } from './builtin/button';
 import { Form } from './core/Form';
 import Debug from './utils/Debug';
 import { Fields, FieldSpecs } from './utils/types';
 
 export {
-    button,
     checkbox,
     checklist,
     date,
@@ -49,7 +47,6 @@ export {
     textarea,
     time,
     FormSpec,
-    $Submitter,
     acceptBoolean,
     english,
     optional,
@@ -71,7 +68,6 @@ export {
 };
 
 export type {
-    ButtonSpec,
     ButtonProps,
     EnumOption,
     FieldConfig,

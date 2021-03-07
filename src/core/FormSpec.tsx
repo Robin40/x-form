@@ -1,14 +1,15 @@
 import { FieldSpec, useField } from './FieldSpec';
 import _ from 'lodash';
-import { $Submitter, useSubmitter } from './$Submitter';
+import { SubmitConfig } from './SubmitConfig';
 import { Form } from './Form';
 import { FormProps } from '../utils/htmlProps';
 import { useFormState } from './useFormState';
 import { FieldSpecs } from '../utils/types';
+import { Submitter } from './Submitter';
 
 export interface FormConfig<T = any> {
     readonly fields: FieldSpecs<T>;
-    readonly submit: $Submitter<T>;
+    readonly submit: SubmitConfig<T>;
     readonly props?: FormProps;
 }
 
@@ -38,9 +39,9 @@ export class FormSpec<T> {
      * i.e. every field become read-only and the submit button is disabled. */
     readOnly(): FormSpec<T> {
         return this.each((field) => field.readOnly()).with({
-            submit: this.config.submit.with({
+            submit: {
                 buttonProps: { disabled: true, 'aria-disabled': true },
-            }),
+            },
         });
     }
 }
@@ -55,7 +56,7 @@ export function useForm<T = any>(spec: FormSpec<T>): Form<T> {
 
     const { config } = spec;
     const fields = _.mapValues(config.fields, useField) as any;
-    const submitter = useSubmitter(config.submit);
+    const submitter = new Submitter(config.submit);
 
     return new Form<T>(config, fields, submitter, state);
 }

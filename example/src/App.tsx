@@ -119,6 +119,9 @@ function App() {
                 pet: select('Favorite pet').with({
                     options: ['Cat', 'Dog', 'Other'],
                     initialInput: 'Cat',
+                    classNames: {
+                        Input: 'test',
+                    },
                 }),
                 // prettier-ignore
                 specifyPet: text('Specify favorite pet')

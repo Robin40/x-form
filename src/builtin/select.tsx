@@ -4,6 +4,7 @@ import { Option } from '../core/EnumOption';
 import { Result, Valid } from '../core/Result';
 import { Field } from '../core/Field';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 export const select = CustomField<string, Option>({
     category: 'enum',
@@ -21,9 +22,15 @@ export const select = CustomField<string, Option>({
     },
 
     render: {
-        Input({ field }) {
+        Input({ field, className }) {
             return (
-                <select {...(field.inputProps as any)}>
+                <select
+                    {...(field.inputProps as any)}
+                    className={classNames(
+                        field.inputProps.className,
+                        className
+                    )}
+                >
                     {_.isString(field.blankOption) ? (
                         <option value=''>{field.blankOption}</option>
                     ) : field.input.isLoading ? (

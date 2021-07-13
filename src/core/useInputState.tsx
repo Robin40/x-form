@@ -31,15 +31,16 @@ export function useInputState<S>(
 
     const [isLoading, setIsLoading] = useState(isAsync(optionsObject));
     const [error, setError] = useState<Error | null>(null);
-    const [options, setOptions] = useState(
-        isAsync(optionsObject) ? [] : optionsObject.map(parseOption)
-    );
+    const [asyncOptions, setAsyncOptions] = useState(Array<Option>());
+    const options = isAsync(optionsObject)
+        ? asyncOptions
+        : optionsObject.map(parseOption);
 
     useMountEffect(() => {
         if (isAsync(optionsObject)) {
             optionsObject()
                 .then(_.map(parseOption))
-                .then(setOptions)
+                .then(setAsyncOptions)
                 .catch(setError)
                 .finally(() => setIsLoading(false));
         }
